@@ -110,7 +110,7 @@ async def authorization_verify_based_on_roles(
             else:
                 return False
     else:
-        return False
+        return False  
 
 
 async def authorization_verify_based_on_org_admin_status(
@@ -172,3 +172,4 @@ async def authorization_verify_if_user_is_anon(user_id: int):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="You should be logged in to perform this action",
         )
+    return True

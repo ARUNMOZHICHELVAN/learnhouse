@@ -566,7 +566,7 @@ async def put_assignment_task_submission_file(
     org = db_session.exec(org_statement).first()
 
     # RBAC check
-    await rbac_check(request, course.course_uuid, current_user, "update", db_session)
+    await authorization_verify_if_user_is_anon(current_user.id)
 
     # Upload reference file
     if sub_file and sub_file.filename and activity and org:
@@ -1094,9 +1094,14 @@ async def create_assignment_submission(
             status_code=400,
             detail="Assignment User Submission already exists",
         )
+    
+    #RBAC check 
+    await authorization_verify_if_user_is_anon(current_user.id)
 
-    # RBAC check
-    await rbac_check(request, course.course_uuid, current_user, "update", db_session)
+    ##for submission of assigments , if course is public , any user can make a submission
+    
+
+
 
     # Create Assignment User Submission
     assignment_user_submission = AssignmentUserSubmission(
@@ -1681,6 +1686,8 @@ async def rbac_check(
             course_uuid,
             db_session,
         )
+
+
 
 
 ## 🔒 RBAC Utils ##

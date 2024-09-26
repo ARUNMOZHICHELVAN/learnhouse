@@ -55,6 +55,17 @@ function UserEditGeneral() {
             setTimeout(() => {
               setSubmitting(false)
               updateProfile(values, session.data.user.id, access_token)
+              .then(response => {
+                console.log("Response "+JSON.stringify(response))
+                if(response){
+                  setSuccess('User Profile has been updated')
+                  setTimeout(() => setSuccess(''),2000)
+                }
+                else{
+                  setError(response.HTTPmessage)
+                  setTimeout(() => setError(''),2000)
+                }
+              });
             }, 400)
           }}
         >
@@ -62,21 +73,23 @@ function UserEditGeneral() {
             <div className="flex space-x-8">
               <Form className="max-w-md">
                 <label className="block mb-2 font-bold" htmlFor="email">
-                  Email
+                  Email*
                 </label>
                 <Field
-                  className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4  cursor-not-allowed py-2 mb-4 border rounded-lg focus:outline-none "
                   type="email"
                   name="email"
+                  readOnly
                 />
 
                 <label className="block mb-2 font-bold" htmlFor="username">
-                  Username
+                  Username*
                 </label>
                 <Field
                   className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="username"
                   name="username"
+                  required
                 />
 
                 <label className="block mb-2 font-bold" htmlFor="first_name">
@@ -104,9 +117,10 @@ function UserEditGeneral() {
                 </label>
 
                 <Field
-                  className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 mb-4 border  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="bio"
                   name="bio"
+                  required
                 />
                 <button
                   type="submit"

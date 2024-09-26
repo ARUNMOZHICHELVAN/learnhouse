@@ -11,15 +11,36 @@ function UserEditPassword() {
 
   const updatePasswordUI = async (values: any) => {
     let user_id = session.data.user.id
+    if (values.old_password === values.new_password) {
+      setError("Old password and new password cannot be the same.");
+      setSuccess(null);
+      return; // Early exit
+    }
+    if (values.new_password.length < 8) {
+      setError("New password must be at least 8 characters long.");
+      setSuccess(null);
+      return; // Early exit
+    }
     try {
-      await updatePassword(user_id, values, access_token)
-      setSuccess("Password updated successfully!")
-      setError(null)
+      const res= await updatePassword(user_id, values, access_token)
+      //added by ARUN
+      console.log("updatePassword Response"+JSON.stringify(res))
+      if(res.status_code === 401){
+        setSuccess("Password updated successfully!")
+        setError(null)
+      }
+      else {
+        setError("Wrong Password")
+        setSuccess(null)
+      }
+      
     } catch (err) {
-      setError("Failed to update password. Please try again.")
+      setError("Something Went wrong")
       setSuccess(null)
     }
   }
+  
+  
 
   useEffect(() => {
     // Any logic based on session change can be placed here
@@ -29,6 +50,7 @@ function UserEditPassword() {
     <div className="ml-10 mr-10 mx-auto bg-white rounded-xl shadow-sm px-6 py-5">
       <Formik
         initialValues={{ old_password: '', new_password: '' }}
+        
         enableReinitialize
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true)
@@ -45,6 +67,7 @@ function UserEditPassword() {
               className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               name="old_password"
+              required
             />
             <ErrorMessage name="old_password" component="div" className="text-red-500 mb-2" />
 
@@ -55,6 +78,7 @@ function UserEditPassword() {
               className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               name="new_password"
+              required
             />
             <ErrorMessage name="new_password" component="div" className="text-red-500 mb-2" />
 

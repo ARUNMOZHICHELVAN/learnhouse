@@ -64,6 +64,7 @@ function AssignmentSubmissionsSubPage({ assignment_uuid }: { assignment_uuid: st
 }
 
 function SubmissionBox({ assignment_uuid, user_id, submission }: any) {
+    console.log("User id "+user_id)
     const session = useLHSession() as any;
     const access_token = session?.data?.tokens?.access_token;
     const [gradeSudmissionModal, setGradeSubmissionModal] = React.useState({

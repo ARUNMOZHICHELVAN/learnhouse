@@ -258,6 +258,7 @@ async def api_handle_assignment_task_submissions(
     """
     Create new task submissions for an assignment
     """
+    # user_id_from_request = assignment_task_submission_object.user_id
     return await handle_assignment_task_submission(
         request,
         assignment_task_uuid,

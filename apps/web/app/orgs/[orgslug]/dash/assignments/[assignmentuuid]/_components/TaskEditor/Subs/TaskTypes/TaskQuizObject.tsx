@@ -265,10 +265,12 @@ function TaskQuizObject({ view, assignmentTaskUUID, user_id }: TaskQuizObjectPro
 
             const finalGrade = Math.round((correctAnswers / totalOptions) * maxPoints);
 
+            //added user_id for inserting data 
             // Save the grade to the server
             const values = {
                 task_submission: userSubmissions,
                 grade: finalGrade,
+                user_id:user_id,
                 task_submission_grade_feedback: 'Auto graded by system',
             };
 

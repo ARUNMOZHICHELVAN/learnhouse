@@ -26,6 +26,7 @@ export async function updateUserAvatar(
     `${getAPIUrl()}users/update_avatar/${user_uuid}`,
     RequestBodyFormWithAuthHeader('PUT', formData, null, access_token)
   )
+  console.log("Updated Avatar "+JSON.stringify(result))
   const res = await getResponseMetadata(result)
   return res
 }

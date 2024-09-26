@@ -54,9 +54,8 @@ const session = await auth() as any;  const access_token = session?.tokens?.acce
 }
 
 const CollectionPage = async (params: any) => {
-  const cookies = useCookies() as any;
-
-const session = await auth() as any;  const access_token = session?.tokens?.access_token
+  const cookies = useCookies as any;
+  const session = await auth() as any;  const access_token = session?.tokens?.access_token
   const org = await getOrganizationContextInfo(params.params.orgslug, {
     revalidate: 1800,
     tags: ['organizations'],

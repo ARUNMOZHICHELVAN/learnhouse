@@ -18,6 +18,7 @@ from src.security.rbac.rbac import (
     authorization_verify_based_on_roles_and_authorship_and_usergroups,
     authorization_verify_if_user_is_anon,
 )
+from fastapi.responses import JSONResponse
 from src.db.organizations import Organization, OrganizationRead
 from src.db.users import (
     AnonymousUser,
@@ -350,16 +351,20 @@ async def update_user_password(
             status_code=400,
             detail="User does not exist",
         )
-        
 
     # RBAC check
     responseRBAC = await rbac_check(request, current_user, "update", user.user_uuid, db_session)
     print("RBAC Check ", responseRBAC)
     print("ARUN SQL statement " + str(user))
     if not security_verify_password(form.old_password, user.password):
-        return  HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Wrong password"
-        )   
+        # raise  HTTPException(
+        #     status_code=status.HTTP_401_UNAUTHORIZED, detail="Wrong password"
+        # ) 
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail={"error": "Wrong password", "status_code": status.HTTP_401_UNAUTHORIZED}
+        )
+
 
     # Update user
     user.password = security_hash_password(form.new_password)

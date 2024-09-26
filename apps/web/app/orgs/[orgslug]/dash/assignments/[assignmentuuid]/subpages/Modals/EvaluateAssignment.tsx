@@ -12,12 +12,14 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 function EvaluateAssignment({ user_id }: any) {
+    console.log("Evaluate Assignment "+user_id)
     const assignments = useAssignments() as any;
     const session = useLHSession() as any;
     const org = useOrg() as any;
     const router = useRouter();
 
     async function gradeAssignment() {
+        console.log("grade assignment "+user_id)
         const res = await putFinalGrade(user_id, assignments?.assignment_object.assignment_uuid, session.data?.tokens?.access_token);
         if (res.success) {
             toast.success(res.data.message)

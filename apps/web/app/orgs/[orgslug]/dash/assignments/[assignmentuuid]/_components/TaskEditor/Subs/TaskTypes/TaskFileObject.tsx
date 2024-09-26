@@ -140,7 +140,8 @@ export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: Ta
         }
     }
 
-    async function gradeCustomFC(grade: number) {
+    async function gradeCustomFc(grade: number) {
+        console.log("GradeCustomFc "+grade)
         if (assignmentTaskUUID) {
             if (grade > assignmentTaskOutsideProvider.max_grade_value) {
                 toast.error(`Grade cannot be more than ${assignmentTaskOutsideProvider.max_grade_value} points`);
@@ -184,7 +185,7 @@ export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: Ta
         , [assignmentTaskUUID])
 
     return (
-        <AssignmentBoxUI submitFC={submitFC} showSavingDisclaimer={showSavingDisclaimer} view={view} gradeCustomFC={gradeCustomFC} currentPoints={userSubmissionObject?.grade} maxPoints={assignmentTaskOutsideProvider?.max_grade_value} type="file">
+        <AssignmentBoxUI submitFC={submitFC} showSavingDisclaimer={showSavingDisclaimer} view={view} gradeCustomFC={gradeCustomFc} currentPoints={userSubmissionObject?.grade} maxPoints={assignmentTaskOutsideProvider?.max_grade_value} type="file">
             {view === 'teacher' && (
                 <div className='flex py-5 text-sm justify-center mx-auto space-x-2 text-slate-500'>
                     <Info size={20} />

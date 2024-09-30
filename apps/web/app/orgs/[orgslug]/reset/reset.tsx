@@ -2,11 +2,13 @@
 import Image from 'next/image'
 import React from 'react'
 import learnhouseIcon from 'public/learnhouse_bigicon_1.png'
+import NanohealIcon from 'public/nanoheal_logo.jpg'
 import FormLayout, {
     FormField,
     FormLabelAndMessage,
     Input,
 } from '@components/StyledElements/Form/Form'
+
 import * as Form from '@radix-ui/react-form'
 import { getOrgLogoMediaDirectory } from '@services/media/media'
 import { AlertTriangle, Info } from 'lucide-react'
@@ -94,7 +96,7 @@ function ResetPasswordClient() {
                             quality={100}
                             width={30}
                             height={30}
-                            src={learnhouseIcon}
+                            src={NanohealIcon}
                             alt=""
                         />
                     </Link>
@@ -118,7 +120,7 @@ function ResetPasswordClient() {
                                     quality={100}
                                     width={70}
                                     height={70}
-                                    src={learnhouseIcon}
+                                    src={NanohealIcon}
                                     alt=""
                                 />
                             )}

@@ -14,18 +14,18 @@ function UserEditPassword() {
     if (values.old_password === values.new_password) {
       setError("Old password and new password cannot be the same.");
       setSuccess(null);
-      return; // Early exit
+      return; 
     }
     if (values.new_password.length < 8) {
       setError("New password must be at least 8 characters long.");
       setSuccess(null);
-      return; // Early exit
+      return; 
     }
     try {
       const res= await updatePassword(user_id, values, access_token)
       //added by ARUN
       console.log("updatePassword Response"+JSON.stringify(res))
-      if(res.status_code === 401){
+      if(res.status_code == "401"){
         setSuccess("Password updated successfully!")
         setError(null)
       }

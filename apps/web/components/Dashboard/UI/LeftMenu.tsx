@@ -3,6 +3,7 @@ import { useOrg } from '@components/Contexts/OrgContext'
 import { signOut } from 'next-auth/react'
 import ToolTip from '@components/StyledElements/Tooltip/Tooltip'
 import LearnHouseDashboardLogo from '@public/dashLogo.png'
+import NanohealLogo from '@public/nanoheal_logo.jpg'
 import { Backpack, BookCopy, Home, LogOut, School, Settings, Users } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -60,9 +61,9 @@ function LeftMenu() {
               side="right"
             >
               <Image
-                alt="Learnhouse logo"
+                alt="Nanoheal logo"
                 width={40}
-                src={LearnHouseDashboardLogo}
+                src={NanohealLogo}
               />
             </ToolTip>
             <ToolTip

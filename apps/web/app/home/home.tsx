@@ -9,6 +9,7 @@ import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import learnhouseIcon from 'public/learnhouse_bigicon_1.png'
+import NanohealIcon from 'public/nanoheal_logo.jpg'
 import React, { useEffect } from 'react'
 import useSWR from 'swr';
 
@@ -28,7 +29,7 @@ function HomeClient() {
           quality={100}
           width={60}
           height={60}
-          src={learnhouseIcon}
+          src={NanohealIcon}
           alt=""
         />
       </div>

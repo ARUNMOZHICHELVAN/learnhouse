@@ -362,7 +362,7 @@ async def update_user_password(
         # ) 
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail={"error": "Wrong password", "status_code": status.HTTP_401_UNAUTHORIZED}
+            detail={"error": "Wrong password", "status_code": "401"}
         )
 
 
@@ -583,7 +583,7 @@ async def rbac_check(
         await authorization_verify_if_user_is_anon(current_user.id)
 
         # if user is the same as the one being read
-        if current_user.user_uuid == user_uuid:
+        if current_user.user_uuid == user_uuid: 
             return True
 
         await authorization_verify_based_on_roles_and_authorship_and_usergroups(

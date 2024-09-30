@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import React from 'react'
 import learnhouseIcon from 'public/learnhouse_bigicon_1.png'
+import NanohealIcon from 'public/nanoheal_logo.jpg'
 import FormLayout, {
     FormField,
     FormLabelAndMessage,
@@ -52,7 +53,7 @@ function ForgotPasswordClient() {
                 setMessage(res.data + ', please check your email')
                 setIsSubmitting(false)
                 setTimeout(() => {
-                    setMessage(null)
+                    setMessage("")
                 }, 3000);
             } else {
                 setError(res.data.detail)
@@ -76,7 +77,7 @@ function ForgotPasswordClient() {
                             quality={100}
                             width={30}
                             height={30}
-                            src={learnhouseIcon}
+                            src={NanohealIcon}
                             alt=""
                         />
                     </Link>
@@ -100,7 +101,7 @@ function ForgotPasswordClient() {
                                     quality={100}
                                     width={70}
                                     height={70}
-                                    src={learnhouseIcon}
+                                    src={NanohealIcon}
                                     alt=""
                                 />
                             )}

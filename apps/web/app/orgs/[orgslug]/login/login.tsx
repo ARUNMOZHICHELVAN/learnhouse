@@ -1,5 +1,6 @@
 'use client'
 import learnhouseIcon from 'public/learnhouse_bigicon_1.png'
+import NanoheaIcon from 'public/nanoheal_logo.jpg'
 import FormLayout, {
   FormField,
   FormLabelAndMessage,
@@ -98,7 +99,7 @@ const LoginClient = (props: LoginClientProps) => {
               quality={100}
               width={30}
               height={30}
-              src={learnhouseIcon}
+              src={NanoheaIcon}
               alt=""
             />
           </Link>
@@ -106,27 +107,7 @@ const LoginClient = (props: LoginClientProps) => {
         <div className="ml-10 h-4/6 flex flex-row text-white">
           <div className="m-auto flex space-x-4 items-center flex-wrap">
             <div>Login to </div>
-            <div className="shadow-[0px_4px_16px_rgba(0,0,0,0.02)]">
-              {props.org?.logo_image ? (
-                <img
-                  src={`${getOrgLogoMediaDirectory(
-                    props.org.org_uuid,
-                    props.org?.logo_image
-                  )}`}
-                  alt="Learnhouse"
-                  style={{ width: 'auto', height: 70 }}
-                  className="rounded-xl shadow-xl inset-0 ring-1 ring-inset ring-black/10 bg-white"
-                />
-              ) : (
-                <Image
-                  quality={100}
-                  width={70}
-                  height={70}
-                  src={learnhouseIcon}
-                  alt=""
-                />
-              )}
-            </div>
+            
             <div className="font-bold text-xl">{props.org?.name}</div>
           </div>
         </div>

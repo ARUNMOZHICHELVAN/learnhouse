@@ -219,26 +219,6 @@ async def api_update_user_password(
     return response
     # return await update_user_password(request, db_session, current_user, user_id, form)
 
-# function created by arun
-# @router.put("/change_password/{user_id}", response_model=UserRead, tags=["users"], responses={
-#     401: {"model": ErrorResponse, "description": "Unauthorized - Wrong password"},
-#     404: {"model": ErrorResponse, "description": "User does not exist"},
-# })
-# async def api_update_user_password(
-#     *,
-#     request: Request,
-#     db_session: Session = Depends(get_db_session),
-#     current_user: PublicUser = Depends(get_current_user),
-#     user_id: int,
-#     form: UserUpdatePassword,
-# ) -> UserRead:
-#     """
-#     Update User Password
-#     """
-#     # Call the function that may raise HTTPException
-#     response = await update_user_password(request, db_session, current_user, user_id, form)
-#     return response
-
 
 
 @router.post("/reset_password/change_password/{email}", tags=["users"])

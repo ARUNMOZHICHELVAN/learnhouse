@@ -3,6 +3,7 @@ import React from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import learnhouseIcon from 'public/learnhouse_icon.png'
+import NanohealIcon from 'public/nanoheal_logo.jpg'
 import { ToolbarButtons } from './Toolbar/ToolbarButtons'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -179,7 +180,7 @@ function Editor(props: Editor) {
                   <EditorInfoLearnHouseLogo
                     width={25}
                     height={25}
-                    src={learnhouseIcon}
+                    src={NanohealIcon}
                     alt=""
                   />
                 </Link>

@@ -1,5 +1,6 @@
 'use client'
 import learnhouseIcon from 'public/learnhouse_bigicon_1.png'
+import NanohealIcon from 'public/nanoheal_logo.jpg'
 import Image from 'next/image'
 import { getOrgLogoMediaDirectory } from '@services/media/media'
 import Link from 'next/link'
@@ -58,7 +59,7 @@ function SignUpClient(props: SignUpClientProps) {
               quality={100}
               width={30}
               height={30}
-              src={learnhouseIcon}
+              src={NanohealIcon}
               alt=""
             />
           </Link>
@@ -82,7 +83,7 @@ function SignUpClient(props: SignUpClientProps) {
                   quality={100}
                   width={70}
                   height={70}
-                  src={learnhouseIcon}
+                  src={NanohealIcon}
                   alt=""
                 />
               )}

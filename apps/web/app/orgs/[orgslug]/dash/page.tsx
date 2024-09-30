@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import learnhousetextlogo from '../../../../public/learnhouse_logo.png'
+import NanohealTextLogo from '@public/Nanoheal_Tex_image.jpg'
 import { BookCopy, School, Settings, University, Users } from 'lucide-react'
 import Link from 'next/link'
 import AdminAuthorization from '@components/Security/AdminAuthorization'
@@ -10,9 +11,9 @@ function DashboardHome() {
     <div className="flex items-center justify-center mx-auto min-h-screen flex-col space-x-3">
       <div className="mx-auto pb-10">
         <Image
-          alt="learnhouse logo"
+          alt="Nanoheal logo"
           width={230}
-          src={learnhousetextlogo}
+          src={NanohealTextLogo}
         ></Image>
       </div>
       <AdminAuthorization authorizationMode="component">

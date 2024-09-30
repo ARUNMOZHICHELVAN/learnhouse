@@ -662,7 +662,7 @@ async def rbac_check(
             )
         )
 
-        if isUserAnon:
+        if not isUserAnon:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="You should be logged in to be able to achieve this action",

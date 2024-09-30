@@ -149,7 +149,7 @@ async def create_user_with_invite(
     check_limits_with_usage("members", org_id, db_session)
 
     # Check if invite code contains UserGroup
-    if inviteCode.usergroup_id:
+    if "usergroup_id" in inviteCode:
         # Add user to UserGroup
         await add_users_to_usergroup(
             request,

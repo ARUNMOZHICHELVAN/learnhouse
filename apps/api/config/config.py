@@ -58,10 +58,14 @@ class HostingConfig(BaseModel):
     content_delivery: ContentDeliveryConfig
 
 
+# class MailingConfig(BaseModel):
+#     resend_api_key: str
+#     system_email_address: str
 class MailingConfig(BaseModel):
-    resend_api_key: str
-    system_email_address: str
-
+    smtp_server: str  # SMTP server (e.g., smtp.gmail.com)
+    smtp_port: str    # SMTP port (e.g., 587 for TLS)
+    system_email_address: str  # Your email address
+    system_email_password: str  # Your email account password or app password
 
 class DatabaseConfig(BaseModel):
     sql_connection_string: Optional[str]
@@ -226,13 +230,27 @@ def get_learnhouse_config() -> LearnHouseConfig:
 
     # Mailing config
     env_resend_api_key = os.environ.get("LEARNHOUSE_RESEND_API_KEY")
+    
+    env_smtp_server =  os.environ.get("LEARNHOUSE_SMTP_SERVER")
+    env_smtp_port = os.environ.get("LEARNHOUSE_SMTP_PORT")
+    env_system_email_password = os.environ.get("LEARNHOUSE_SMTP_PORT")
     env_system_email_address = os.environ.get("LEARNHOUSE_SYSTEM_EMAIL_ADDRESS")
     resend_api_key = env_resend_api_key or yaml_config.get("mailing_config", {}).get(
         "resend_api_key"
     )
+
+    smtp_server = env_smtp_server or yaml_config.get(
+        "mailing_config", {}
+    ).get("smtp_server")
+    smtp_port = env_smtp_port or yaml_config.get(
+        "mailing_config", {}
+    ).get("smtp_port")
     system_email_address = env_system_email_address or yaml_config.get(
         "mailing_config", {}
-    ).get("system_email_adress")
+    ).get("system_email_address")
+    system_email_password = env_system_email_password or yaml_config.get(
+        "mailing_config", {}
+    ).get("system_email_password")
 
     # Sentry config
     # check if the sentry config is provided in the YAML file
@@ -301,8 +319,13 @@ def get_learnhouse_config() -> LearnHouseConfig:
         ai_config=ai_config,
         redis_config=RedisConfig(redis_connection_string=redis_connection_string),
         mailing_config=MailingConfig(
-            resend_api_key=resend_api_key, system_email_address=system_email_address
-        ),
+            # resend_api_key=resend_api_key, system_email_address=system_email_address
+            smtp_server= smtp_server,
+            smtp_port= smtp_port,
+            system_email_address= system_email_address,
+            system_email_password= system_email_password
+            
+        )
     )
 
     return config

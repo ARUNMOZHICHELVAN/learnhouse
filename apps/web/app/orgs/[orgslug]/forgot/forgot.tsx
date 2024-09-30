@@ -51,6 +51,9 @@ function ForgotPasswordClient() {
             if (res.status == 200) {
                 setMessage(res.data + ', please check your email')
                 setIsSubmitting(false)
+                setTimeout(() => {
+                    setMessage(null)
+                }, 3000);
             } else {
                 setError(res.data.detail)
                 setIsSubmitting(false)

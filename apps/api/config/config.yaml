@@ -28,8 +28,12 @@ hosting_config:
       endpoint_url: ""
 
 mailing_config:
-  resend_api_key: "re_VtHbgFbV_AdEJTchUp8agFpBSwdtmci5n"
-  system_email_adress: "delivered@resend.dev"
+  # resend_api_key: "re_VtHbgFbV_AdEJTchUp8agFpBSwdtmci5n"
+  # system_email_adress: "delivered@resend.dev"
+  smtp_server: smtp.gmail.com
+  smtp_port: 587
+  system_email_address: arunmozhichelvans@gmail.com
+  system_email_password: efwvmglqohowsxlq
 
 database_config:
   sql_connection_string: postgresql://learnhouse:learnhouse@localhost:5432/learnhouse

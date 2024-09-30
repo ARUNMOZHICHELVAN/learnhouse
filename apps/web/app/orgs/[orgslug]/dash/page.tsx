@@ -60,7 +60,7 @@ function DashboardHome() {
       <div className="flex flex-col space-y-10 ">
         <AdminAuthorization authorizationMode="component">
           <div className="h-1 w-[100px] bg-neutral-200 rounded-full mx-auto"></div>
-          <div className="flex justify-center items-center">
+          {/* <div className="flex justify-center items-center">
             <Link
               href={'https://university.learnhouse.io/'}
               target='_blank'
@@ -71,7 +71,7 @@ function DashboardHome() {
                 LearnHouse University
               </div>
             </Link>
-          </div>
+          </div> */}
           <div className="mx-auto mt-[40px] w-28 h-1 bg-neutral-200 rounded-full"></div>
         </AdminAuthorization>
 

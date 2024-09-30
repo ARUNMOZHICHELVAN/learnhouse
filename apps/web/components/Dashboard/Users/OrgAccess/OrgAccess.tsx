@@ -54,6 +54,7 @@ function OrgAccess() {
 
   async function changeJoinMethod(method: 'open' | 'inviteOnly') {
     let res = await changeSignupMechanism(org.id, method, access_token)
+    console.log("changeSignupMechanism "+JSON.stringify(res))
     if (res.status == 200) {
       router.refresh()
       mutate(`${getAPIUrl()}orgs/slug/${org?.slug}`)
@@ -88,9 +89,9 @@ function OrgAccess() {
                 confirmationMessage="Are you sure you want to change the signup mechanism to open ? This will allow users to join your organization freely."
                 dialogTitle={'Change to open ?'}
                 dialogTrigger={
-                  <div className="w-full h-[160px] bg-slate-100 rounded-lg cursor-pointer hover:bg-slate-200 ease-linear transition-all">
+                  <div className="w-full h-[160px] bg-slate-100 rounded-lg cursor-pointer hover:bg-slate-200 ease-linear transition-all relative">
                     {joinMethod == 'open' ? (
-                      <div className="bg-green-200 text-green-600 font-bold w-fit my-3 mx-3 absolute text-sm px-3 py-1 rounded-lg">
+                      <div className="bg-green-200 text-green-600 font-bold w-fit my-3 mx-3 absolute top-3 left-3 text-sm px-3 py-1 rounded-lg">
                         Active
                       </div>
                     ) : null}
@@ -115,9 +116,9 @@ function OrgAccess() {
                 confirmationMessage="Are you sure you want to change the signup mechanism to closed ? This will allow users to join your organization only by invitation."
                 dialogTitle={'Change to closed ?'}
                 dialogTrigger={
-                  <div className="w-full h-[160px] bg-slate-100 rounded-lg cursor-pointer hover:bg-slate-200 ease-linear transition-all">
+                  <div className="w-full h-[160px] bg-slate-100 rounded-lg cursor-pointer hover:bg-slate-200 ease-linear transition-all relative">
                     {joinMethod == 'inviteOnly' ? (
-                      <div className="bg-green-200 text-green-600 font-bold w-fit my-3 mx-3 absolute text-sm px-3 py-1 rounded-lg">
+                      <div className="bg-green-200 text-green-600 font-bold w-fit my-3 mx-3 absolute top-3 left-3 text-sm px-3 py-1 rounded-lg">
                         Active
                       </div>
                     ) : null}

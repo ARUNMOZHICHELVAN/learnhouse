@@ -89,5 +89,6 @@ export function getActivityMediaDirectory(
 
 export function getOrgLogoMediaDirectory(orgUUID: string, fileId: string) {
   let uri = `${getMediaUrl()}content/orgs/${orgUUID}/logos/${fileId}`
+  
   return uri
 }

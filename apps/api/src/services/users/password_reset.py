@@ -104,8 +104,9 @@ async def send_reset_password_code(
         organization=org,
         email=user.email,
     )
+    print(f"Error {isEmailSent}")
 
-    if not isEmailSent:
+    if  isEmailSent:
         raise HTTPException(
             status_code=500,
             detail="Issue with sending reset code",

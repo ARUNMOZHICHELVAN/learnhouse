@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 import learnhouseBigIcon from 'public/learnhouse_bigicon.png'
-import nanohealBigIcon  from 'public/nanoheal_bigicon_1.png'
+import nanohealBigIcon  from 'public/Nanoheal_Text_image.jpg'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
 

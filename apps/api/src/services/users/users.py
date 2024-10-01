@@ -354,8 +354,7 @@ async def update_user_password(
 
     # RBAC check
     responseRBAC = await rbac_check(request, current_user, "update", user.user_uuid, db_session)
-    print("RBAC Check ", responseRBAC)
-    print("ARUN SQL statement " + str(user))
+    
     if not security_verify_password(form.old_password, user.password):
         # raise  HTTPException(
         #     status_code=status.HTTP_401_UNAUTHORIZED, detail="Wrong password"
@@ -546,16 +545,13 @@ async def security_get_user(request: Request, db_session: Session, email: str) -
     statement = select(User).where(User.email == email)
     user = db_session.exec(statement).first()
 
-    ##comment added by ARUN
-    print("security_get_user function")
+    
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="User with Email does not exist",
         )
     
-    ##comment added by ARUN
-    print("security_get_user function 2 ")
     user = User(**user.model_dump())
 
     return user

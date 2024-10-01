@@ -28,21 +28,29 @@ export default {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials: any, req: any) {
+
+        try{
         // logic to verify if user exists
         let unsanitized_req = await loginAndGetToken(
           credentials?.email,
           credentials?.password
         )
+
         let res = await getResponseMetadata(unsanitized_req)
 
-        //comment added by ARUN
-        console.log("getResponseMetadata ")
         if (res.success) {
           // If login failed, then this is the place you could do a registration
           return res.data
         } else {
           return null
         }
+      }
+      catch(error)
+      {
+        console.error("Authorization error:", error);
+        // Return a specific error message
+        return { error: "Authorization error" }; 
+      }
       },
     }),
     GoogleProvider({

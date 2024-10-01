@@ -21,9 +21,7 @@ export async function updatePassword(
   )
   
   const responseData = await result.json()
-  console.log("ARUN ASDF "+JSON.stringify(responseData))
   // const res = await errorHandling(result)
-  // console.log("ARUN ASDF22 "+JSON.stringify(res))
   return responseData
 }
 

@@ -64,23 +64,27 @@ const LoginClient = (props: LoginClientProps) => {
         setSubmitting(false);
         return;
       }
-      const res = await signIn('credentials', { 
-        redirect: false,
-        email: values.email,
-        password: values.password,
-        callbackUrl: getUriWithOrg(props.org?.slug, '/')
-      });
-      console.log("ARUN "+JSON.stringify(res))
-      if (res && res.error) {
-        setError("Wrong Email or password");
-        setIsSubmitting(false);
-      } else {
-        await signIn('credentials', {
+      try{
+        const res = await signIn('credentials', { 
+          redirect: false,
           email: values.email,
           password: values.password,
           callbackUrl: getUriWithOrg(props.org?.slug, '/')
         });
+        if(res!=null){
+          await signIn('credentials', {
+            email: values.email,
+            password: values.password,
+            callbackUrl: getUriWithOrg(props.org?.slug, '/')
+          });
+        }
       }
+      catch(error){
+        setError("Wrong Email or password");
+        setIsSubmitting(false);
+      }
+      
+      
       },
   })
 

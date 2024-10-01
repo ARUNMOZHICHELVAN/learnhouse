@@ -34,6 +34,8 @@ export async function loginAndGetToken(
 
   // fetch using await and async
   const response = await fetch(`${getAPIUrl()}auth/login`, requestOptions)
+  // const response2 = await response.json()
+  // console.log("Response!! "+JSON.stringify(response2))
   return response
 }
 

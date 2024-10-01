@@ -93,7 +93,6 @@ export async function createExternalVideoActivity(
   // add coursechapter_id to data
   data.chapter_id = chapter_id
   data.activity_id = activity.id
-  console.log("ARUN VIDEO Function")
   const result = await fetch(
     `${getAPIUrl()}activities/external_video`,
     RequestBodyWithAuthHeader('POST', data, null, access_token)

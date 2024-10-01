@@ -23,8 +23,6 @@ function UserEditPassword() {
     }
     try {
       const res= await updatePassword(user_id, values, access_token)
-      //added by ARUN
-      console.log("updatePassword Response"+JSON.stringify(res))
       if(res.status_code == "401"){
         setSuccess("Password updated successfully!")
         setError(null)

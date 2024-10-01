@@ -36,7 +36,6 @@ export const RequestBodyWithAuthHeader = (
     // Next.js
     next: next,
   }
-  console.log("ARUN OPTIONS "+JSON.stringify(options))
   return options
 }
 

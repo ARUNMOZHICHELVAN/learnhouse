@@ -550,7 +550,7 @@ async def security_get_user(request: Request, db_session: Session, email: str) -
     print("security_get_user function")
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="User with Email does not exist",
         )
     

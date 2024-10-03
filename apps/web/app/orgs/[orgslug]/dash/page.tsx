@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import learnhousetextlogo from '../../../../public/learnhouse_logo.png'
-import NanohealTextLogo from '@public/Nanoheal_Text_image.jpg'
+import NanohealTextLogo from '@public/Nanoheal_Tex_image.jpg'
 import { BookCopy, School, Settings, University, Users } from 'lucide-react'
 import Link from 'next/link'
 import AdminAuthorization from '@components/Security/AdminAuthorization'

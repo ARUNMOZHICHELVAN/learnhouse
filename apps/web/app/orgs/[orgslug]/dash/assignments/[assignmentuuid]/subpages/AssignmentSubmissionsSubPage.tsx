@@ -78,7 +78,7 @@ function SubmissionBox({ assignment_uuid, user_id, submission }: any) {
     );
 
     useEffect(() => {
-        console.log(user);
+        console.log(user_id);
     }
         , [session, user]);
 

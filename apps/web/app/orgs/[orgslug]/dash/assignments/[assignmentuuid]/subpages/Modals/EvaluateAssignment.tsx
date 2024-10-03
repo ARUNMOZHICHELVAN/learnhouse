@@ -1,7 +1,7 @@
 import { useAssignments } from '@components/Contexts/Assignments/AssignmentContext';
 import { BookOpenCheck, Check, Download, Info, MoveRight, X } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect } from 'react'
 import TaskQuizObject from '../../_components/TaskEditor/Subs/TaskTypes/TaskQuizObject';
 import TaskFileObject from '../../_components/TaskEditor/Subs/TaskTypes/TaskFileObject';
 import { useOrg } from '@components/Contexts/OrgContext';
@@ -17,6 +17,10 @@ function EvaluateAssignment({ user_id }: any) {
     const session = useLHSession() as any;
     const org = useOrg() as any;
     const router = useRouter();
+
+    useEffect(() => {
+        console.log("Evaluate assignment"+user_id)
+    },[])
 
     async function gradeAssignment() {
         console.log("grade assignment "+user_id)

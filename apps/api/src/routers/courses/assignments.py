@@ -460,7 +460,7 @@ async def api_final_grade_submission(
     """
 
     return await grade_assignment_submission(
-        request, user_id, assignment_uuid, current_user, db_session
+        request, assignment_uuid,user_id, current_user, db_session
     )
 
 

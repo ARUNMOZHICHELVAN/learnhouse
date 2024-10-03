@@ -10,13 +10,14 @@ type AssignmentBoxProps = {
     saveFC?: () => void
     submitFC?: () => void
     gradeFC?: () => void
-    gradeCustomFC?: (grade: number) => void
+    gradeCustomFC?: (grade: number,user_id:string) => void
     showSavingDisclaimer?: boolean
     children: React.ReactNode
+    user_id : string
 
 }
 
-function AssignmentBoxUI({ type, view, currentPoints, maxPoints, saveFC, submitFC, gradeFC, gradeCustomFC, showSavingDisclaimer, children }: AssignmentBoxProps) {
+function AssignmentBoxUI({ type, view, currentPoints, maxPoints, saveFC, submitFC, gradeFC, gradeCustomFC, showSavingDisclaimer, children  , user_id}: AssignmentBoxProps) {
     const [customGrade, setCustomGrade] = React.useState<number>(0)
     const submission = useAssignmentSubmission() as any
     useEffect(() => {
@@ -109,7 +110,7 @@ function AssignmentBoxUI({ type, view, currentPoints, maxPoints, saveFC, submitF
                                 onChange={(e) => setCustomGrade(parseInt(e.target.value))}
                                 placeholder={maxPoints.toString()} className='w-[100px] light-shadow text-sm py-0.5 outline outline-gray-200 rounded-lg px-2' type="number" />
                             <div
-                                onClick={() =>  gradeCustomFC && gradeCustomFC(customGrade)}
+                                onClick={() =>  gradeCustomFC && gradeCustomFC(customGrade,user_id)}    
                                 className='bg-gradient-to-bl text-orange-700  bg-orange-300/20 hover:bg-orange-300/10 items-center flex rounded-md px-2 py-1 space-x-2'>
                                 <BookPlus size={14} />
                                 <p className='text-xs font-semibold'>Grade</p>

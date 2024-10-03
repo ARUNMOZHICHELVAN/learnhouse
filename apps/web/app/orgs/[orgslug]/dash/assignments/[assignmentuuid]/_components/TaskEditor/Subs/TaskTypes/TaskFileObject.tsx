@@ -17,7 +17,7 @@ type FileSchema = {
 type TaskFileObjectProps = {
     view: 'teacher' | 'student' | 'grading' | 'custom-grading';
     assignmentTaskUUID?: string;
-    user_id?: string;
+    user_id: string;
 };
 
 export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: TaskFileObjectProps) {
@@ -140,7 +140,7 @@ export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: Ta
         }
     }
 
-    async function gradeCustomFc(grade: number) {
+    async function gradeCustomFc(grade: number , user_id:string) {
         console.log("GradeCustomFc "+grade)
         if (assignmentTaskUUID) {
             if (grade > assignmentTaskOutsideProvider.max_grade_value) {
@@ -153,6 +153,7 @@ export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: Ta
             const values = {
                 task_submission: userSubmissions,
                 grade: grade,
+                user_id:parseInt(user_id),
                 task_submission_grade_feedback: 'Graded by teacher : @' + session.data.user.username,
             };
     
@@ -185,7 +186,7 @@ export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: Ta
         , [assignmentTaskUUID])
 
     return (
-        <AssignmentBoxUI submitFC={submitFC} showSavingDisclaimer={showSavingDisclaimer} view={view} gradeCustomFC={gradeCustomFc} currentPoints={userSubmissionObject?.grade} maxPoints={assignmentTaskOutsideProvider?.max_grade_value} type="file">
+        <AssignmentBoxUI submitFC={submitFC} showSavingDisclaimer={showSavingDisclaimer} view={view} gradeCustomFC={gradeCustomFc} currentPoints={userSubmissionObject?.grade} maxPoints={assignmentTaskOutsideProvider?.max_grade_value}  type="file" user_id={user_id}>
             {view === 'teacher' && (
                 <div className='flex py-5 text-sm justify-center mx-auto space-x-2 text-slate-500'>
                     <Info size={20} />

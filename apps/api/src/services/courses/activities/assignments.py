@@ -726,9 +726,10 @@ async def handle_assignment_task_submission(
     # assignment = db_session.exec(statement).first()
 
     # Check if user already submitted the assignment
+    
     statement = select(AssignmentTaskSubmission).where(
         AssignmentTaskSubmission.assignment_task_id == assignment_task.id,
-        AssignmentTaskSubmission.user_id == current_user.id,
+        AssignmentTaskSubmission.user_id == assignment_task_submission_object.user_id,
     )
     assignment_task_submission = db_session.exec(statement).first()
 
@@ -1411,6 +1412,7 @@ async def delete_assignment_submission(
 async def grade_assignment_submission(
     request: Request,
     assignment_uuid: str,
+    user_id: str,
     current_user: PublicUser | AnonymousUser,
     db_session: Session,
 ):

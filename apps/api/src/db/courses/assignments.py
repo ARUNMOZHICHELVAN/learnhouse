@@ -196,6 +196,7 @@ class AssignmentTaskSubmissionUpdate(SQLModel):
     assignment_task_submission_uuid: Optional[str]
     task_submission: Optional[Dict] = Field(default=None, sa_column=Column(JSON))
     grade: Optional[int]
+    user_id: Optional[int] 
     task_submission_grade_feedback: Optional[str]
     assignment_type: Optional[AssignmentTaskTypeEnum]
 

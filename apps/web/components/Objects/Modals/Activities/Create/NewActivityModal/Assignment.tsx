@@ -82,6 +82,10 @@ function NewAssignment({ submitActivity, chapterId, course, closeModal }: any) {
         closeModal()
     }
 
+    const getTodayDate = () => {
+        return new Date().toISOString().slice(0, 10);
+    }
+
 
     return (
         <FormLayout onSubmit={handleSubmit}>
@@ -119,7 +123,7 @@ function NewAssignment({ submitActivity, chapterId, course, closeModal }: any) {
                     </FormMessage>
                 </Flex>
                 <Form.Control asChild>
-                    <Input onChange={handleDueDateChange} type="date" required />
+                    <Input onChange={handleDueDateChange} type="date" min={getTodayDate()}   required />
                 </Form.Control>
             </FormField>
 

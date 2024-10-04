@@ -7,6 +7,24 @@ from src.security.rbac.rbac import (
     authorization_verify_if_element_is_public,
     authorization_verify_if_user_is_anon,
 )
+from src.db.courses.assignments import (
+    Assignment,
+    AssignmentCreate,
+    AssignmentRead,
+    AssignmentTask,
+    AssignmentTaskCreate,
+    AssignmentTaskRead,
+    AssignmentTaskSubmission,
+    AssignmentTaskSubmissionCreate,
+    AssignmentTaskSubmissionRead,
+    AssignmentTaskSubmissionUpdate,
+    AssignmentTaskUpdate,
+    AssignmentUpdate,
+    AssignmentUserSubmission,
+    AssignmentUserSubmissionCreate,
+    AssignmentUserSubmissionRead,
+    AssignmentUserSubmissionStatus,
+)
 from src.db.courses.activities import ActivityCreate, Activity, ActivityRead, ActivityUpdate
 from src.db.courses.chapter_activities import ChapterActivity
 from src.db.users import AnonymousUser, PublicUser
@@ -215,10 +233,43 @@ async def delete_activity(
             status_code=404,
             detail="Activity not found in chapter",
         )
+    
+    #  # If activity_sub_type is TYPE_ASSIGNMENT, delete related entries
+    # if activity.activity_type == 'TYPE_ASSIGNMENT':
+    #     # Delete from Assignment table
+    #     assignment_statement = select(Assignment).where(Assignment.activity_id == activity.id)
+    #     assignments = db_session.exec(assignment_statement).all()
+    #     for assignment in assignments:
+    #         db_session.delete(assignment)
+
+    #         # Delete related submissions from AssignmentUserSubmission
+    #     submission_statement = select(AssignmentUserSubmission).where(
+    #         AssignmentUserSubmission.assignment_id == assignment.id
+    #     )
+    #     submissions = db_session.exec(submission_statement).all()
+    #     for submission in submissions:
+    #         db_session.delete(submission)
+
+    #     # Delete related AssignmentTask entries
+    #     task_statement = select(AssignmentTask).where(AssignmentTask.activity_id == activity.id)
+    #     tasks = db_session.exec(task_statement).all()
+    #     for task in tasks:
+    #         db_session.delete(task)
+
+    #     # Delete related AssignmentTaskSubmission entries
+    #     task_submission_statement = select(AssignmentTaskSubmission).where(
+    #         AssignmentTaskSubmission.activity_id == activity.id
+    #     )
+    #     task_submissions = db_session.exec(task_submission_statement).all()
+    #     for task_submission in task_submissions:
+    #         db_session.delete(task_submission)
+
 
     db_session.delete(activity_chapter)
     db_session.delete(activity)
     db_session.commit()
+
+    
 
     return {"detail": "Activity deleted"}
 

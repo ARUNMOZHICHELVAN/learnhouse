@@ -21,21 +21,22 @@ function UserEditPassword() {
       setSuccess(null);
       return; 
     }
-    try {
-      const res= await updatePassword(user_id, values, access_token)
-      if(res.status_code == "401"){
-        setSuccess("Password updated successfully!")
-        setError(null)
-      }
-      else {
+    const res= await updatePassword(user_id, values, access_token)
+      console.log("ARUN2 "+JSON.stringify(res))
+      if(res && res.detail && res.detail.status_code === "401"){
         setError("Wrong Password")
         setSuccess(null)
+        setTimeout(() => {
+          setSuccess(null)
+        },2000)
       }
-      
-    } catch (err) {
-      setError("Something Went wrong")
-      setSuccess(null)
-    }
+      else {
+        setSuccess("Password updated successfully!")
+        setError(null)
+        setTimeout(() => {
+          setSuccess(null)
+        },2000)
+      }
   }
   
   

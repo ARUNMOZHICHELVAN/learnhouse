@@ -17,7 +17,7 @@ type FileSchema = {
 type TaskFileObjectProps = {
     view: 'teacher' | 'student' | 'grading' | 'custom-grading';
     assignmentTaskUUID?: string;
-    user_id: string;
+    user_id?: string;
 };
 
 export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: TaskFileObjectProps) {
@@ -140,7 +140,7 @@ export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: Ta
         }
     }
 
-    async function gradeCustomFc(grade: number , user_id:string) {
+    async function gradeCustomFc(grade: number , user_id:string | undefined) {
         console.log("GradeCustomFc "+grade)
         if (assignmentTaskUUID) {
             if (grade > assignmentTaskOutsideProvider.max_grade_value) {
@@ -153,7 +153,7 @@ export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: Ta
             const values = {
                 task_submission: userSubmissions,
                 grade: grade,
-                user_id:parseInt(user_id),
+                user_id:parseInt(user_id==undefined ? '1' : user_id),
                 task_submission_grade_feedback: 'Graded by teacher : @' + session.data.user.username,
             };
     

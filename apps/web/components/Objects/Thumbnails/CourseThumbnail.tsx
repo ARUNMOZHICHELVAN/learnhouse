@@ -112,9 +112,9 @@ const AdminEditsArea = (props: {
         >
           <div
             className="hover:cursor-pointer p-1 px-4 bg-blue-600 rounded-xl items-center flex shadow-2xl"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer" title='Edit course'
           >
-            <FilePenLine size={14} className="text-blue-200 font-bold" />
+            <FilePenLine size={14} className="text-blue-200 font-bold"/>
           </div>
         </Link>
         <Link
@@ -128,12 +128,12 @@ const AdminEditsArea = (props: {
         >
           <div
             className=" hover:cursor-pointer p-1 px-4 bg-gray-800 rounded-xl items-center  flex shadow-2xl"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer" title='General settings'
           >
             <Settings2 size={14} className="text-gray-200 font-bold" />
           </div>
         </Link>
-        <EllipsisVertical size={14} className='text-gray-200 font-bold' />
+        {/* <EllipsisVertical size={14} className='text-gray-200 font-bold' /> */}
         <ConfirmationModal
           confirmationButtonText="Delete Course"
           confirmationMessage="Are you sure you want to delete this course?"
@@ -141,7 +141,7 @@ const AdminEditsArea = (props: {
           dialogTrigger={
             <div
               className="hover:cursor-pointer p-1 px-4 bg-rose-600 h-fit rounded-xl items-center flex shadow-2xl"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer" title='Remove course'
             >
               <BookMinus size={14} className="text-rose-200 font-bold" />
             </div>

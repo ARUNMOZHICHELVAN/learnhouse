@@ -91,7 +91,7 @@ function EvaluateAssignment({ user_id }: any) {
                             </div>
                         </div>
                         <div className='min-h-full'>
-                            {task.assignment_type === 'QUIZ' && <TaskQuizObject key={task.assignment_task_uuid} view='grading' user_id={user_id} assignmentTaskUUID={task.assignment_task_uuid} />}
+                            {task.assignment_type === 'QUIZ' && <TaskQuizObject key={task.assignment_task_uuid} view='grading'  assignmentTaskUUID={task.assignment_task_uuid} user_id={String(user_id)} />}
                             {task.assignment_type === 'FILE_SUBMISSION' && <TaskFileObject key={task.assignment_task_uuid} view='custom-grading' user_id={user_id} assignmentTaskUUID={task.assignment_task_uuid} />}
                         </div>
                     </div>

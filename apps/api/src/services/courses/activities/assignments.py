@@ -721,9 +721,7 @@ async def handle_assignment_task_submission(
             status_code=404,
             detail="Assignment not found",
         )
-    ##added by ARUN
-    # assignment_user_submission = select(AssignmentUserSubmission).where(AssignmentUserSubmission.assignment_id == assignment_task.assignment_id)
-    # assignment = db_session.exec(statement).first()
+    
 
     # Check if user already submitted the assignment
     

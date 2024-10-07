@@ -57,11 +57,11 @@ async def create_iframe_activity(
 
     # Get organization
     statement = select(Organization).where(Organization.id == coursechapter.org_id)
-    organization = db_session.exec(statement).first()
+    # organization = db_session.exec(statement).first()
 
     # Get course
     statement = select(Course).where(Course.id == coursechapter.course_id)
-    course = db_session.exec(statement).first()
+    # course = db_session.exec(statement).first()
 
     # Generate activity_uuid
     activity_uuid = str(f"activity_{uuid4()}")

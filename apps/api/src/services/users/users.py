@@ -18,7 +18,6 @@ from src.security.rbac.rbac import (
     authorization_verify_based_on_roles_and_authorship_and_usergroups,
     authorization_verify_if_user_is_anon,
 )
-from fastapi.responses import JSONResponse
 from src.db.organizations import Organization, OrganizationRead
 from src.db.users import (
     AnonymousUser,
@@ -353,7 +352,7 @@ async def update_user_password(
         )
 
     # RBAC check
-    responseRBAC = await rbac_check(request, current_user, "update", user.user_uuid, db_session)
+    await rbac_check(request, current_user, "update", user.user_uuid, db_session)
     
     if not security_verify_password(form.old_password, user.password):
         # raise  HTTPException(

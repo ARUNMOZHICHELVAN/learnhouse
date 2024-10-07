@@ -18,13 +18,10 @@
 #     return email
         
 from pydantic import EmailStr
-from src.db.organizations import OrganizationRead
-from src.db.users import UserRead
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from config.config import get_learnhouse_config
-from fastapi import  HTTPException
 
 def  send_email(to: EmailStr, subject: str, body: str):
     lh_config = get_learnhouse_config()
@@ -43,7 +40,7 @@ def  send_email(to: EmailStr, subject: str, body: str):
         with smtplib.SMTP(lh_config.mailing_config.smtp_server, lh_config.mailing_config.smtp_port) as server:
             server.starttls()  # Upgrade the connection to a secure encrypted SSL/TLS connection
             server.login(lh_config.mailing_config.system_email_address, lh_config.mailing_config.system_email_password)  # Login to the SMTP server
-            response = server.send_message(msg)  # Send the email
+            server.send_message(msg)  # Send the email
             print("Email sent successfully!")
     except smtplib.SMTPException as e:
         # Handle SMTP-specific exceptions

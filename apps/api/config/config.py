@@ -235,9 +235,7 @@ def get_learnhouse_config() -> LearnHouseConfig:
     env_smtp_port = os.environ.get("LEARNHOUSE_SMTP_PORT")
     env_system_email_password = os.environ.get("LEARNHOUSE_SMTP_PORT")
     env_system_email_address = os.environ.get("LEARNHOUSE_SYSTEM_EMAIL_ADDRESS")
-    resend_api_key = env_resend_api_key or yaml_config.get("mailing_config", {}).get(
-        "resend_api_key"
-    )
+    
 
     smtp_server = env_smtp_server or yaml_config.get(
         "mailing_config", {}
@@ -319,7 +317,6 @@ def get_learnhouse_config() -> LearnHouseConfig:
         ai_config=ai_config,
         redis_config=RedisConfig(redis_connection_string=redis_connection_string),
         mailing_config=MailingConfig(
-            # resend_api_key=resend_api_key, system_email_address=system_email_address
             smtp_server= smtp_server,
             smtp_port= smtp_port,
             system_email_address= system_email_address,

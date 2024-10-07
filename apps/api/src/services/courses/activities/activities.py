@@ -7,24 +7,6 @@ from src.security.rbac.rbac import (
     authorization_verify_if_element_is_public,
     authorization_verify_if_user_is_anon,
 )
-from src.db.courses.assignments import (
-    Assignment,
-    AssignmentCreate,
-    AssignmentRead,
-    AssignmentTask,
-    AssignmentTaskCreate,
-    AssignmentTaskRead,
-    AssignmentTaskSubmission,
-    AssignmentTaskSubmissionCreate,
-    AssignmentTaskSubmissionRead,
-    AssignmentTaskSubmissionUpdate,
-    AssignmentTaskUpdate,
-    AssignmentUpdate,
-    AssignmentUserSubmission,
-    AssignmentUserSubmissionCreate,
-    AssignmentUserSubmissionRead,
-    AssignmentUserSubmissionStatus,
-)
 from src.db.courses.activities import ActivityCreate, Activity, ActivityRead, ActivityUpdate
 from src.db.courses.chapter_activities import ChapterActivity
 from src.db.users import AnonymousUser, PublicUser

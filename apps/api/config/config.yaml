@@ -30,8 +30,9 @@ hosting_config:
 mailing_config:
   smtp_server: smtp.gmail.com
   smtp_port: 587
-  system_email_address: arunmozhichelvans@gmail.com
-  system_email_password: asdfasdfsdf
+  system_email_address: arunmozhichelvan1@gmail.com
+  system_email_password: wdfcwsdfcwscfsd
+
 
 database_config:
   sql_connection_string: postgresql://learnhouse:learnhouse@localhost:5432/learnhouse

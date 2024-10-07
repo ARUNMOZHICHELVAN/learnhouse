@@ -229,7 +229,7 @@ def get_learnhouse_config() -> LearnHouseConfig:
     ).get("redis_connection_string")
 
     # Mailing config
-    env_resend_api_key = os.environ.get("LEARNHOUSE_RESEND_API_KEY")
+    
     
     env_smtp_server =  os.environ.get("LEARNHOUSE_SMTP_SERVER")
     env_smtp_port = os.environ.get("LEARNHOUSE_SMTP_PORT")

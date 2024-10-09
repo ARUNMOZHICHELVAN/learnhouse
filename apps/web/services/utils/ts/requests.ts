@@ -119,7 +119,16 @@ export const errorHandling = async (res: any) => {
   console.log("Error handling req "+JSON.stringify(res))  
   if (!res.ok) {
     // Create an error object with status and message
-    const error: any = new Error(`Error: ${res.status} ${res.statusText}`);
+    var error:any
+    if(res?.status){
+       error = new Error(`Error: ${res.status} ${res.statusText}`);
+    }
+    else {
+       error = new Error(`${res.statusText}`);
+       error.status = res.status;
+       throw error;
+
+    }
     error.status = res.status;
     throw error;
   }
@@ -140,6 +149,7 @@ export const getResponseMetadata = async (
   fetch_result: any
 ): Promise<CustomResponseTyping> => {
   const json = await fetch_result.json()
+  console.log("JSON DATA  ❌❌"+JSON.stringify(json))
   if (fetch_result.status === 200) {
     return {
       success: true,
@@ -148,6 +158,7 @@ export const getResponseMetadata = async (
       HTTPmessage: fetch_result.statusText,
     }
   } else {
+    console.log("success:false is returned")
     return {
       success: false,
       data: json,

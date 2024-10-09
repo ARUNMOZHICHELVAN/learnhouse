@@ -78,6 +78,11 @@ const LoginClient = (props: LoginClientProps) => {
             callbackUrl: getUriWithOrg(props.org?.slug, '/')
           });
         }
+        else{
+          setError("Wrong Email or password");
+          setIsSubmitting(false);
+        }
+
       }
       catch(error){
         setError("Wrong Email or password");

@@ -135,7 +135,7 @@ function ActivityClient(props: ActivityClientProps) {
                     <AuthenticatedClientElement checkMethod="authentication">
                       {activity.activity_type != 'TYPE_ASSIGNMENT' &&
                         <>
-                          <AIActivityAsk activity={activity} />
+                          {/* <AIActivityAsk activity={activity} /> */}
                           <MoreVertical size={17} className="text-gray-300 " />
                           <MarkStatus
                             activity={activity}

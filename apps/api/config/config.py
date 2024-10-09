@@ -233,7 +233,7 @@ def get_learnhouse_config() -> LearnHouseConfig:
     
     env_smtp_server =  os.environ.get("LEARNHOUSE_SMTP_SERVER")
     env_smtp_port = os.environ.get("LEARNHOUSE_SMTP_PORT")
-    env_system_email_password = os.environ.get("LEARNHOUSE_SMTP_PORT")
+    env_system_email_password = os.environ.get("LEARNHOUSE_SMTP_EMAIL_PASSWORD")
     env_system_email_address = os.environ.get("LEARNHOUSE_SYSTEM_EMAIL_ADDRESS")
     
 

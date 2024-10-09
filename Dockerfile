@@ -14,11 +14,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_21.x | bash - \
 
 # Frontend Build
 FROM base AS deps
+ARG IP_ADDRESS={YOUR_IP}
 
-ENV NEXT_PUBLIC_LEARNHOUSE_API_URL=http://localhost/api/v1/
-ENV NEXT_PUBLIC_LEARNHOUSE_BACKEND_URL=http://localhost/
-ENV NEXT_PUBLIC_LEARNHOUSE_DOMAIN=localhost
-ENV NEXT_PUBLIC_LEARNHOUSE_COLLABORATION_WS_URL=ws://localhost:1998
+ENV NEXT_PUBLIC_LEARNHOUSE_API_URL=http://$IP_ADDRESS/api/v1/
+ENV NEXT_PUBLIC_LEARNHOUSE_BACKEND_URL=http://$IP_ADDRESS/
+ENV NEXT_PUBLIC_LEARNHOUSE_DOMAIN=$IP_ADDRESS
+ENV NEXT_PUBLIC_LEARNHOUSE_COLLABORATION_WS_URL=ws://$IP_ADDRESS:1998
+
 
 WORKDIR /app/web
 COPY ./apps/web/package.json ./apps/web/pnpm-lock.yaml* ./
@@ -52,5 +54,7 @@ COPY ./apps/api ./
 WORKDIR /app
 COPY ./extra/nginx.conf /etc/nginx/conf.d/default.conf
 ENV PORT=8000 LEARNHOUSE_PORT=9000 HOSTNAME=0.0.0.0
+ENV LEARNHOUSE_GOOGLE_CLIENT_ID=
+ENV LEARNHOUSE_GOOGLE_CLIENT_SECRET=
 COPY ./extra/start.sh /app/start.sh
 CMD ["sh", "start.sh"]

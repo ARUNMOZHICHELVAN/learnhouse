@@ -1,0 +1,47 @@
+site_name: LearnHouse
+site_description: LearnHouse is an open-source platform tailored for learning experiences.
+contact_email: hi@learnhouse.app
+
+# This config is optimized for local development. You can change the values according to your needs.
+
+general:
+  development_mode: true
+  install_mode: true
+
+security:
+  auth_jwt_secret_key: m5Aglh02thazIeMlH/GQB1UVCWa1QWDsIImWAy2ZMt2u
+
+hosting_config:
+  domain: localhost
+  ssl: true
+  port: 1338
+  allowed_origins:
+    - http://localhost:3000
+    - http://localhost:3001
+  cookies_config:
+    domain: ".localhost"
+  allowed_regexp: '\b((?:https?://)[^\s/$.?#].[^\s]*)\b'
+  content_delivery:
+    type: "filesystem" # "filesystem" or "s3api"
+    s3api:
+      bucket_name: ""
+      endpoint_url: ""
+
+mailing_config:
+  smtp_server: 
+  smtp_port: 
+  system_email_address: 
+  system_email_password: 
+
+
+database_config:
+  sql_connection_string: postgresql://learnhouse:learnhouse@localhost:5432/learnhouse
+
+redis_config:
+  redis_connection_string: redis://localhost:6379/learnhouse
+
+ai_config:
+  chromadb_config:
+    isSeparateDatabaseEnabled: True
+    db_host: "localhost"
+    

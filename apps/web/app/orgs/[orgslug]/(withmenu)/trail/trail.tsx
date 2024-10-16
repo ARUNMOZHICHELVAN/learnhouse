@@ -20,8 +20,19 @@ function Trail(params: any) {
     `${getAPIUrl()}trail/org/${orgID}/trail`,
     (url) => swrFetcher(url, access_token)
   )
+  const [isAdmin , setIsAdmin] = React.useState<boolean | null>(null)
+
 
   useEffect(() => { }, [trail, org])
+
+  useEffect(() =>{
+    //This logic checks if the current user is admin , if so and if there are no users who has 
+    // started the Course then we should display appropriate message
+    const description  = session?.data?.roles[0]?.role?.description
+    if(description && description.includes("Admin")){
+      setIsAdmin(true)
+    }
+  },[session]);
 
   return (
     <GeneralWrapperStyled>
@@ -30,7 +41,7 @@ function Trail(params: any) {
         <PageLoading></PageLoading>
       ) : (
         <div className="space-y-6">
-          {trail.runs.map((run: any) => (
+          {trail.runs.length>0 ?  trail.runs.map((run: any) => (
             <>
               <TrailCourseElement
                 run={run}
@@ -38,7 +49,16 @@ function Trail(params: any) {
                 orgslug={orgslug}
               />
             </>
-          ))}
+          )) : 
+          (
+            <div className="flex mx-auto h-[300px]">
+            <h1 className="text-xl font-bold text-gray-600 ml-8">
+              {isAdmin ? "No user has started any courses." : "Start a course to see the Progress"}
+            </h1>
+            </div>
+            
+          )
+        }
         </div>
       )}
     </GeneralWrapperStyled>

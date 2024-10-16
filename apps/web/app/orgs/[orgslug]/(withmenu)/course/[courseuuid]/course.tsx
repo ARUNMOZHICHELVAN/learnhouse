@@ -19,11 +19,14 @@ import CourseUpdates from '@components/Objects/CourseUpdates/CourseUpdates'
 import { CourseProvider } from '@components/Contexts/CourseContext'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { useCookies } from '@components/Contexts/CookiesContext'
+import toast from 'react-hot-toast'
+
 
 const CourseClient = (props: any) => {
   const [user, setUser] = useState<any>({})
   const cookies = useCookies() as any;
   const [learnings, setLearnings] = useState<any>([])
+  const [isAuthenticated , setIsAuthenticated] = useState<boolean | null>(null) 
   const session = useLHSession() as any;
   const courseuuid = props.courseuuid
   const orgslug = props.orgslug
@@ -56,6 +59,8 @@ const CourseClient = (props: any) => {
     )
   }
 
+  
+
   async function quitCourse() {
     // Close activity
     let activity = await removeCourse('course_' + courseuuid, orgslug, session.data?.tokens?.access_token)
@@ -67,6 +72,17 @@ const CourseClient = (props: any) => {
   useEffect(() => {
     getLearningTags()
   }, [org, course])
+
+  useEffect(() => {
+    if(session){
+      if(session.status == 'unauthenticated'){
+        setIsAuthenticated(false)
+      }
+      else{
+        setIsAuthenticated(true)
+      }
+    }
+  },[session])
 
   return (
     <>
@@ -205,21 +221,32 @@ const CourseClient = (props: any) => {
                                       </div>
                                     )}
                                 </div>
-                                <Link
-                                  className="flex font-semibold grow pl-2 text-neutral-500"
-                                  href={
-                                    getUriWithOrg(orgslug, '',cookies) +
-                                    `/course/${courseuuid}/activity/${activity.activity_uuid.replace(
-                                      'activity_',
-                                      ''
-                                    )}`
-                                  }
-                                  rel="noopener noreferrer"
-                                >
-                                  <p>{activity.name}</p>
-                                </Link>
+                                {isAuthenticated ? (
+                                  <Link
+                                    className="flex font-semibold grow pl-2 text-neutral-500"
+                                    href={
+                                      getUriWithOrg(orgslug, '', cookies) +
+                                      `/course/${courseuuid}/activity/${activity.activity_uuid.replace(
+                                        'activity_',
+                                        ''
+                                      )}`
+                                    }
+                                    rel="noopener noreferrer"
+                                  >
+                                    <p>{activity.name}</p>
+                                  </Link>
+                                  ) : (
+                                    <span
+                                      className="flex font-semibold grow pl-2 text-neutral-500 cursor-not-allowed"
+                                      onClick={() => toast.error('Please log in to access this activity.')}
+                                    >
+                                      <p>{activity.name}</p>
+                                    </span>
+                                  )}
+
+                                
                                 <div className="flex ">
-                                  {activity.activity_type ===
+                                  {isAuthenticated && activity.activity_type ===
                                     'TYPE_DYNAMIC' && (
                                       <>
                                         <Link
@@ -239,8 +266,10 @@ const CourseClient = (props: any) => {
                                           </div>
                                         </Link>
                                       </>
-                                    )}
-                                  {activity.activity_type === 'TYPE_VIDEO' && (
+                                    ) 
+                                  }
+                                  
+                                  {isAuthenticated && activity.activity_type === 'TYPE_VIDEO' && (
                                     <>
                                       <Link
                                         className="flex grow pl-2 text-gray-500"
@@ -260,7 +289,7 @@ const CourseClient = (props: any) => {
                                       </Link>
                                     </>
                                   )}
-                                  {activity.activity_type === 'TYPE_IFRAME' && (
+                                  {isAuthenticated && activity.activity_type === 'TYPE_IFRAME' && (
                                     <>
                                       <Link
                                         className="flex grow pl-2 text-gray-500"
@@ -280,7 +309,7 @@ const CourseClient = (props: any) => {
                                       </Link>
                                     </>
                                   )}
-                                  {activity.activity_type ===
+                                  {isAuthenticated && activity.activity_type ===
                                     'TYPE_DOCUMENT' && (
                                       <>
                                         <Link
@@ -301,7 +330,7 @@ const CourseClient = (props: any) => {
                                         </Link>
                                       </>
                                     )}
-                                    {activity.activity_type ===
+                                    {isAuthenticated && activity.activity_type ===
                                     'TYPE_ASSIGNMENT' && (
                                       <>
                                         <Link
@@ -372,21 +401,42 @@ const CourseClient = (props: any) => {
                 </div>
               )}
 
-              {isCourseStarted() ? (
-                <button
-                  className="py-2 px-5 mx-auto rounded-xl text-white font-bold h-12 w-[200px] drop-shadow-md bg-red-600 hover:bg-red-700 hover:cursor-pointer"
-                  onClick={quitCourse}
-                >
-                  Quit Course
-                </button>
-              ) : (
-                <button
-                  className="py-2 px-5 mx-auto rounded-xl text-white font-bold h-12 w-[200px] drop-shadow-md bg-black hover:bg-gray-900 hover:cursor-pointer"
-                  onClick={startCourseUI}
-                >
-                  Start Course
-                </button>
-              )}
+              {isAuthenticated ? (
+                isCourseStarted() ? (
+                  <button
+                    className="py-2 px-5 mx-auto rounded-xl text-white font-bold h-12 w-[200px] drop-shadow-md bg-red-600 hover:bg-red-700 hover:cursor-pointer"
+                    onClick={quitCourse}
+                  >
+                    Quit Course
+                  </button>
+                ) : (
+                  <button
+                    className="py-2 px-5 mx-auto rounded-xl text-white font-bold h-12 w-[200px] drop-shadow-md bg-black hover:bg-gray-900 hover:cursor-pointer"
+                    onClick={startCourseUI}
+                  >
+                    Start Course
+                  </button>
+                )
+              ) : 
+              (
+                <div className='flex'>
+                  
+                  
+                  <button
+                    className="py-2 px-5 mx-auto rounded-xl text-white font-bold h-12 w-[200px] drop-shadow-md bg-black hover:bg-gray-900 cursor-not-allowed	"
+                    onClick={() => toast.error('Please log in to access this course.')}
+                  >
+                    Start Course
+                  </button>
+
+                </div>
+                
+              )
+            }
+
+              
+              
+              
             </div>
           </div>
         </GeneralWrapperStyled>

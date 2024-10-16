@@ -14,6 +14,9 @@ import Link from 'next/link'
 import { signup } from '@services/auth/auth'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { signIn } from 'next-auth/react'
+import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons'
+
+
 
 const validate = (values: any) => {
   const errors: any = {}
@@ -42,11 +45,13 @@ const validate = (values: any) => {
     errors.bio = 'Required'
   }
 
+
   return errors
 }
 
 function OpenSignUpComponent() {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [showPassword , setShowPassword] = React.useState(false)
   const org = useOrg() as any
   const router = useRouter()
   const [error, setError] = React.useState('')
@@ -125,20 +130,31 @@ function OpenSignUpComponent() {
         </FormField>
         {/* for password  */}
         <FormField name="password">
-          <FormLabelAndMessage
-            label="Password"
-            message={formik.errors.password}
-          />
-
-          <Form.Control asChild>
-            <Input
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              type="password"
-              required
-            />
-          </Form.Control>
-        </FormField>
+                  <FormLabelAndMessage
+                    label="Password"
+                    message={formik.errors.password}
+                  />
+                
+                  <div className="relative">
+                    <Form.Control asChild>
+                      <Input
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        type={showPassword ? "text" : "password"}
+                        className="pr-10 mb-5" // Ensure enough padding to the right
+                        style={{ paddingRight: '40px' }} // Extra space for the button
+                      />
+                    </Form.Control>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(prev => !prev)}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center w-8 h-8" 
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOpenIcon /> : <EyeNoneIcon />} {/* Toggle icon based on state */}
+                    </button>
+                  </div>
+              </FormField>
         {/* for username  */}
         <FormField name="username">
           <FormLabelAndMessage

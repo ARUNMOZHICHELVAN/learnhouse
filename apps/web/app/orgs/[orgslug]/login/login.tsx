@@ -11,13 +11,15 @@ import * as Form from '@radix-ui/react-form'
 import { useFormik } from 'formik'
 import { getOrgLogoMediaDirectory } from '@services/media/media'
 import React from 'react'
-import { AlertTriangle, UserRoundPlus } from 'lucide-react'
+import { AlertTriangle, Icon, UserRoundPlus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { signIn } from "next-auth/react"
 import { getUriWithOrg, getUriWithoutOrg } from '@services/config/config'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { useCookies } from '@components/Contexts/CookiesContext'
+import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons'
+
 
 interface LoginClientProps {
   org: any
@@ -43,6 +45,7 @@ const validate = (values: any) => {
 
 const LoginClient = (props: LoginClientProps) => {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [showPassword , setShowPassword] = React.useState(false)
   const cookies = useCookies() as any;
   const router = useRouter();
   const session = useLHSession() as any;
@@ -71,7 +74,7 @@ const LoginClient = (props: LoginClientProps) => {
           password: values.password,
           callbackUrl: getUriWithOrg(props.org?.slug, '/')
         });
-        if(res!=null){
+        if(res && res.url!=null){
           await signIn('credentials', {
             email: values.email,
             password: values.password,
@@ -146,20 +149,33 @@ const LoginClient = (props: LoginClientProps) => {
             </FormField>
             {/* for password  */}
             <FormField name="password">
-              <FormLabelAndMessage
-                label="Password"
-                message={formik.errors.password}
-              />
+                  <FormLabelAndMessage
+                    label="Password"
+                    message={formik.errors.password}
+                  />
+                
+                  <div className="relative">
+                    <Form.Control asChild>
+                      <Input
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        type={showPassword ? "text" : "password"}
+                        className="pr-10 mb-5" // Ensure enough padding to the right
+                        style={{ paddingRight: '40px' }} // Extra space for the button
+                      />
+                    </Form.Control>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(prev => !prev)}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center w-8 h-8" 
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOpenIcon /> : <EyeNoneIcon />} {/* Toggle icon based on state */}
+                    </button>
+                  </div>
+              </FormField>
 
-              <Form.Control asChild>
-                <Input
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  type="password"
 
-                />
-              </Form.Control>
-            </FormField>
             <div>
               <Link
                 href={{ pathname: getUriWithoutOrg('/forgot'), query: props.org.slug ? { orgslug: props.org.slug } : null }}

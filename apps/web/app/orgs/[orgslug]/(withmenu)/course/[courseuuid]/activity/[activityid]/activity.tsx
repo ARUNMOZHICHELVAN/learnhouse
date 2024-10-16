@@ -50,6 +50,7 @@ function ActivityClient(props: ActivityClientProps) {
   const [bgColor, setBgColor] = React.useState('bg-white')
   const [assignment, setAssignment] = React.useState(null) as any;
   const [markStatusButtonActive, setMarkStatusButtonActive] = React.useState(false);
+  const [isAdmin , setIsAdmin] = React.useState(false)
   const cookies = useCookies() as any;
 
   function getChapterNameByActivityId(course: any, activity_id: any) {
@@ -84,6 +85,15 @@ function ActivityClient(props: ActivityClientProps) {
     }
   }
     , [activity, pathname])
+
+  useEffect(() =>{
+    //This logic checks if the current user is admin , if so then he will be able to see the 
+    //activity regardless of whether he has published or not
+    const description  = session?.data?.roles[0]?.role?.description
+    if(description && description.includes("Admin")){
+      setIsAdmin(true)
+    }
+  },[session]);
 
   return (
     <>
@@ -131,7 +141,7 @@ function ActivityClient(props: ActivityClientProps) {
                   </h1>
                 </div>
                 <div className="flex space-x-1 items-center">
-                  {activity && activity.published == true && (
+                  {activity && (isAdmin ||  activity.published == true) && (
                     <AuthenticatedClientElement checkMethod="authentication">
                       {activity.activity_type != 'TYPE_ASSIGNMENT' &&
                         <>
@@ -164,7 +174,7 @@ function ActivityClient(props: ActivityClientProps) {
                   )}
                 </div>
               </div>
-              {activity && activity.published == false && (
+              {activity &&  (!isAdmin && activity.published == false) && (
                 <div className="p-7 drop-shadow-sm rounded-lg bg-gray-800">
                   <div className="text-white">
                     <h1 className="font-bold text-2xl">
@@ -173,8 +183,9 @@ function ActivityClient(props: ActivityClientProps) {
                   </div>
                 </div>
               )}
+              
 
-              {activity && activity.published == true && (
+              {activity && (isAdmin  ||  activity.published == true ) && (
                 <div
                   className={`p-7 drop-shadow-sm rounded-lg ${bgColor}`}
                 >

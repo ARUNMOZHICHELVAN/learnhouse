@@ -1,16 +1,19 @@
-import { useLHSession } from '@components/Contexts/LHSessionContext'
-import { updatePassword } from '@services/settings/password'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import React, { useState, useEffect } from 'react'
+import { useLHSession } from '@components/Contexts/LHSessionContext';
+import { updatePassword } from '@services/settings/password';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, { useState, useEffect } from 'react';
+import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 
 function UserEditPassword() {
-  const session = useLHSession() as any
-  const access_token = session?.data?.tokens?.access_token
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
+  const session = useLHSession() as any;
+  const access_token = session?.data?.tokens?.access_token;
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showOldPassword, setShowOldPassword] = useState(false);
 
   const updatePasswordUI = async (values: any) => {
-    let user_id = session.data.user.id
+    let user_id = session.data.user.id;
     if (values.old_password === values.new_password) {
       setError("Old password and new password cannot be the same.");
       setSuccess(null);
@@ -21,40 +24,34 @@ function UserEditPassword() {
       setSuccess(null);
       return; 
     }
-    const res= await updatePassword(user_id, values, access_token)
-      console.log("ARUN2 "+JSON.stringify(res))
-      if(res && res.detail && res.detail.status_code === "401"){
-        setError("Wrong Password")
-        setSuccess(null)
-        setTimeout(() => {
-          setSuccess(null)
-        },2000)
-      }
-      else {
-        setSuccess("Password updated successfully!")
-        setError(null)
-        setTimeout(() => {
-          setSuccess(null)
-        },2000)
-      }
-  }
-  
-  
+    const res = await updatePassword(user_id, values, access_token);
+    if (res && res.detail && res.detail.status_code === "401") {
+      setError("Wrong Password");
+      setSuccess(null);
+      setTimeout(() => {
+        setSuccess(null);
+      }, 2000);
+    } else {
+      setSuccess("Password updated successfully!");
+      setError(null);
+      setTimeout(() => {
+        setSuccess(null);
+      }, 2000);
+    }
+  };
 
   useEffect(() => {
     // Any logic based on session change can be placed here
-  }, [session])
+  }, [session]);
 
   return (
     <div className="ml-10 mr-10 mx-auto bg-white rounded-xl shadow-sm px-6 py-5">
       <Formik
         initialValues={{ old_password: '', new_password: '' }}
-        
         enableReinitialize
         onSubmit={(values, { setSubmitting }) => {
-          setSubmitting(true)
-          updatePasswordUI(values)
-            .finally(() => setSubmitting(false))
+          setSubmitting(true);
+          updatePasswordUI(values).finally(() => setSubmitting(false));
         }}
       >
         {({ isSubmitting }) => (
@@ -62,23 +59,44 @@ function UserEditPassword() {
             <label className="block mb-2 font-bold" htmlFor="old_password">
               Old Password
             </label>
-            <Field
-              className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              type="password"
-              name="old_password"
-              required
-            />
+            <div className='relative mb-4'>
+              <Field
+                className="w-full px-4 py-2 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                type={showOldPassword ? "text" : "password"}
+                name="old_password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowOldPassword(prev => !prev)}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center w-8 h-8"
+                aria-label={showOldPassword ? 'Hide password' : 'Show password'}
+              >
+                {showOldPassword ? <EyeOpenIcon /> : <EyeNoneIcon />}
+              </button>
+            </div>
+
             <ErrorMessage name="old_password" component="div" className="text-red-500 mb-2" />
 
             <label className="block mb-2 font-bold" htmlFor="new_password">
               New Password
             </label>
-            <Field
-              className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              type="password"
-              name="new_password"
-              required
-            />
+            <div className='relative mb-4'>
+              <Field
+                className="w-full px-4 py-2 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                type={showNewPassword ? "text" : "password"}
+                name="new_password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowNewPassword(prev => !prev)}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center w-8 h-8"
+                aria-label={showNewPassword ? 'Hide password' : 'Show password'}
+              >
+                {showNewPassword ? <EyeOpenIcon /> : <EyeNoneIcon />}
+              </button>
+            </div>
             <ErrorMessage name="new_password" component="div" className="text-red-500 mb-2" />
 
             {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -87,7 +105,7 @@ function UserEditPassword() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-3 text-white bg-black rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-3/4 px-6 py-3 text-white bg-black rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               Submit
             </button>
@@ -95,7 +113,7 @@ function UserEditPassword() {
         )}
       </Formik>
     </div>
-  )
+  );
 }
 
-export default UserEditPassword
+export default UserEditPassword;

@@ -14,6 +14,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_21.x | bash - \
 
 # Frontend Build
 FROM base AS deps
+
+#if deploying in local machine , use localhost
 ARG IP_ADDRESS={YOUR_IP}
 
 ENV NEXT_PUBLIC_LEARNHOUSE_API_URL=http://$IP_ADDRESS/api/v1/
@@ -54,7 +56,7 @@ COPY ./apps/api ./
 WORKDIR /app
 COPY ./extra/nginx.conf /etc/nginx/conf.d/default.conf
 ENV PORT=8000 LEARNHOUSE_PORT=9000 HOSTNAME=0.0.0.0
-ENV LEARNHOUSE_GOOGLE_CLIENT_ID=
-ENV LEARNHOUSE_GOOGLE_CLIENT_SECRET=
+ENV LEARNHOUSE_GOOGLE_CLIENT_ID={}
+ENV LEARNHOUSE_GOOGLE_CLIENT_SECRET={}
 COPY ./extra/start.sh /app/start.sh
 CMD ["sh", "start.sh"]

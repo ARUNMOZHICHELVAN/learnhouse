@@ -1,7 +1,9 @@
 from typing import Literal
-from sqlmodel import Session, select
+from sqlmodel import Session, select,cast , String , text
 from src.db.courses.courses import Course
 from src.db.courses.chapters import Chapter
+from src.db.organizations import Organization
+from src.db.courses.blocks import Block
 from src.security.rbac.rbac import (
     authorization_verify_based_on_roles_and_authorship_and_usergroups,
     authorization_verify_if_element_is_public,
@@ -13,7 +15,14 @@ from src.db.users import AnonymousUser, PublicUser
 from fastapi import HTTPException, Request
 from uuid import uuid4
 from datetime import datetime
-
+from src.db.courses.activities import (
+    Activity,
+    ActivityRead,
+    ActivityTypeEnum,
+)
+from src.services.courses.activities.uploads.pdfs import delete_pdf
+from src.services.courses.activities.uploads.videos import delete_video
+from src.services.utils.upload_content import delete_content
 
 ####################################################
 # CRUD
@@ -247,7 +256,68 @@ async def delete_activity(
     #         db_session.delete(task_submission)
 
 
+    
+    #Remove activity from activity_chapter Table
     db_session.delete(activity_chapter)
+
+    #Whenever you are deleting an activity Entry, Make sure to delete from it's local Volume i.e /content
+
+    #To delete a file or video from /content , we also need the org_uuid which is in Organization Table
+    statement = select(Organization.org_uuid).where(
+        Organization.id == activity.org_id
+    )
+    Org_id = db_session.exec(statement).first()
+
+    statement = select(Course.course_uuid).where(
+        Course.id == activity.course_id
+    )
+    course_uuid = db_session.exec(statement).first()
+
+    if(activity.activity_type==ActivityTypeEnum.TYPE_VIDEO):
+        print("Video is getting deleted")
+        await delete_video(activity.activity_uuid,Org_id,course_uuid)
+    
+    if(activity.activity_type==ActivityTypeEnum.TYPE_DOCUMENT):
+        # TO-DO 
+        print("Document is getting deleted")
+        await delete_pdf(activity.activity_uuid,Org_id,course_uuid)
+
+    if(activity.activity_type==ActivityTypeEnum.TYPE_DYNAMIC):
+        # Delete all the related Block entries in the Dynamic Page
+        print("Dynamic Page is getting deleted")
+        #For every type in the activity , remove them from local volume i.e /content
+        for block in activity.content["content"]:
+            if block["type"] in ["blockImage", "blockVideo" , "blockPDF"]:
+                activity_uid = block["attrs"]["blockObject"]["content"].get("activity_uuid")
+                block_type = block["attrs"]["blockObject"]["block_type"]
+
+                if(block_type == "BLOCK_VIDEO"):
+                    print("Video is getting deleted")
+                    await delete_video(activity.activity_uuid,Org_id,course_uuid)
+
+                elif(block_type == "BLOCK_DOCUMENT_PDF"):
+                    print("PDF is getting deleted")
+                    await delete_pdf(activity.activity_uuid,Org_id,course_uuid)
+
+                elif(block_type == "BLOCK_IMAGE"):
+                    print("Image is getting deleted")
+                    await delete_content(
+                        f"courses/{course_uuid}/activities/{activity_uid}",
+                        "orgs",
+                        Org_id,
+                        "jpg",
+                    )
+        blocks = db_session.query(Block).filter(Block.activity_id == activity.id).all()
+
+        for block in blocks:
+            db_session.delete(block)
+            
+                    
+
+
+
+    
+
     db_session.delete(activity)
     db_session.commit()
 

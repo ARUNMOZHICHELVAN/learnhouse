@@ -20,11 +20,13 @@ from src.db.courses.courses import (
     CourseUpdate,
     FullCourseReadWithTrail,
 )
+
 from src.security.rbac.rbac import (
     authorization_verify_based_on_roles_and_authorship_and_usergroups,
     authorization_verify_if_element_is_public,
     authorization_verify_if_user_is_anon,
 )
+from src.db.courses.course_chapters import CourseChapter
 from src.services.courses.thumbnails import upload_thumbnail
 from fastapi import HTTPException, Request, UploadFile
 from datetime import datetime
@@ -345,6 +347,7 @@ async def delete_course(
     current_user: PublicUser | AnonymousUser,
     db_session: Session,
 ):
+    from src.services.courses.chapters import delete_chapter
     statement = select(Course).where(Course.course_uuid == course_uuid)
     course = db_session.exec(statement).first()
 
@@ -357,6 +360,11 @@ async def delete_course(
     # RBAC check
     await rbac_check(request, course.course_uuid, current_user, "delete", db_session)
 
+    statement = select(CourseChapter).where(CourseChapter.course_id == course.id)
+    chapters = db_session.exec(statement).all()
+
+    for chapter in chapters:
+        await delete_chapter(request,chapter.chapter_id,current_user,db_session)
     # Feature usage
     decrease_feature_usage("courses", course.org_id, db_session)
 

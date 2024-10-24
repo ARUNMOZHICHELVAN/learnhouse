@@ -18,6 +18,8 @@ from src.db.courses.chapters import (
     ChapterUpdate,
     ChapterUpdateOrder,
 )
+from src.services.courses.activities.activities import delete_activity
+from src.security.auth import get_current_user,get_db_session
 from src.services.courses.courses import Course
 from src.services.users.users import PublicUser
 from fastapi import HTTPException, status, Request
@@ -195,16 +197,29 @@ async def delete_chapter(
     # RBAC check
     await rbac_check(request, chapter.chapter_uuid, current_user, "delete", db_session)
 
-    db_session.delete(chapter)
-    db_session.commit()
+    # Before deleting a chapter , Delete all the inner activities
+    
+    
 
     # Remove all linked activities
-    statement = select(ChapterActivity).where(ChapterActivity.id == chapter.id)
+    statement = select(ChapterActivity).where(ChapterActivity.chapter_id == chapter.id)
     chapter_activities = db_session.exec(statement).all()
 
+    
+    
+    
+
     for chapter_activity in chapter_activities:
+        statement = select(Activity).where(Activity.id == chapter_activity.activity_id)
+        activity_uuid = db_session.exec(statement).first().activity_uuid
+        
+        await delete_activity(request,activity_uuid,current_user,db_session )
+
         db_session.delete(chapter_activity)
         db_session.commit()
+
+    db_session.delete(chapter)
+    db_session.commit()
 
     return {"detail": "chapter deleted"}
 

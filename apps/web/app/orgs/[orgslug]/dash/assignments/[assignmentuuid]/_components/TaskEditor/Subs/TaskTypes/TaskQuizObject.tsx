@@ -471,7 +471,7 @@ function TaskQuizObject({ view, assignmentTaskUUID, user_id }: TaskQuizObjectPro
                         </div>
                     ))}
                 </div>
-                {view === 'teacher' && questions.length <= 5 && (
+                {view === 'teacher' && questions.length <= 60 && (
                     <div className="flex justify-center mx-auto px-2">
                         <div
                             className="flex w-full my-2 py-2 px-4 bg-white text-slate text-xs rounded-md nice-shadow hover:shadow-sm cursor-pointer space-x-3 items-center transition duration-150 ease-linear"

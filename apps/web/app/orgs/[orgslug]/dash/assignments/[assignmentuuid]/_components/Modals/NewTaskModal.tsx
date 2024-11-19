@@ -7,6 +7,7 @@ import React from 'react'
 import toast from 'react-hot-toast';
 import { mutate } from 'swr';
 
+
 function NewTaskModal({ closeModal, assignment_uuid }: any) {
   const session = useLHSession() as any;
   const access_token = session?.data?.tokens?.access_token;
@@ -64,7 +65,7 @@ function NewTaskModal({ closeModal, assignment_uuid }: any) {
         <p className='text-xl text-gray-700 font-semibold'>File submission</p>
         <p className='text-sm text-gray-500 w-40'>Students can submit files for this task</p>
       </div>
-      <div
+      {/* <div
         onClick={() => toast.error('Forms are not yet supported')}
         className='flex flex-col space-y-2 justify-center  text-center pt-10 opacity-25'>
         <div className='px-5 py-5 rounded-full nice-shadow w-fit mx-auto bg-gray-100/50 text-gray-500 cursor-pointer hover:bg-gray-100 transition-all ease-linear'>
@@ -72,6 +73,15 @@ function NewTaskModal({ closeModal, assignment_uuid }: any) {
         </div>
         <p className='text-xl text-gray-700 font-semibold'>Form</p>
         <p className='text-sm text-gray-500 w-40'>Forms for students to fill out</p>
+      </div> */}
+      <div
+        onClick={() => createTask('FILE_SUBMISSION')}
+        className='flex flex-col space-y-2 justify-center  text-center pt-10'>
+        <div className='px-5 py-5 rounded-full nice-shadow w-fit mx-auto bg-gray-100/50 text-gray-500 cursor-pointer hover:bg-gray-100 transition-all ease-linear'>
+          <FileUp size={30} />
+        </div>
+        <p className='text-xl text-gray-700 font-semibold'>h5p embedding</p>
+        <p className='text-sm text-gray-500 w-40'>Embed an h5p element here</p>
       </div>
     </div>
   )

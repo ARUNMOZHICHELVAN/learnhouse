@@ -311,12 +311,6 @@ async def delete_activity(
 
         for block in blocks:
             db_session.delete(block)
-            
-                    
-
-
-
-    
 
     db_session.delete(activity)
     db_session.commit()

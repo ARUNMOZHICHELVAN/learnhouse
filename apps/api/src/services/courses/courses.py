@@ -20,7 +20,6 @@ from src.db.courses.courses import (
     CourseUpdate,
     FullCourseReadWithTrail,
 )
-
 from src.security.rbac.rbac import (
     authorization_verify_based_on_roles_and_authorship_and_usergroups,
     authorization_verify_if_element_is_public,

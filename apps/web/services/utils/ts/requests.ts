@@ -149,7 +149,6 @@ export const getResponseMetadata = async (
   fetch_result: any
 ): Promise<CustomResponseTyping> => {
   const json = await fetch_result.json()
-  console.log("JSON DATA  ❌❌"+JSON.stringify(json))
   if (fetch_result.status === 200) {
     return {
       success: true,

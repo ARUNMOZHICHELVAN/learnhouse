@@ -50,7 +50,6 @@ export async function generateMetadata({
 }
 
 const CollectionsPage = async (params: any) => {
-  console.log("Error is here!!!")
   const cookieStore = cookies()
   const session = await auth() as any; 
   const access_token = session?.tokens?.access_token

@@ -47,7 +47,6 @@ export default {
       }
       catch(error)
       {
-        console.error("Authorization error:", error);
         // Return a specific error message
         return { error: "Authorization error" }; 
       }

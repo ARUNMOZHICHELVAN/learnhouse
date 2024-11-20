@@ -1,5 +1,5 @@
 from typing import Literal
-from sqlmodel import Session, select,cast , String , text
+from sqlmodel import Session, select
 from src.db.courses.courses import Course
 from src.db.courses.chapters import Chapter
 from src.db.organizations import Organization
@@ -9,17 +9,12 @@ from src.security.rbac.rbac import (
     authorization_verify_if_element_is_public,
     authorization_verify_if_user_is_anon,
 )
-from src.db.courses.activities import ActivityCreate, Activity, ActivityRead, ActivityUpdate
+from src.db.courses.activities import ActivityCreate, Activity, ActivityRead, ActivityUpdate ,ActivityTypeEnum
 from src.db.courses.chapter_activities import ChapterActivity
 from src.db.users import AnonymousUser, PublicUser
 from fastapi import HTTPException, Request
 from uuid import uuid4
 from datetime import datetime
-from src.db.courses.activities import (
-    Activity,
-    ActivityRead,
-    ActivityTypeEnum,
-)
 from src.services.courses.activities.uploads.pdfs import delete_pdf
 from src.services.courses.activities.uploads.videos import delete_video
 from src.services.utils.upload_content import delete_content

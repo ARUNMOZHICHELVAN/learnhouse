@@ -1,6 +1,6 @@
 import { useAssignmentSubmission } from '@components/Contexts/Assignments/AssignmentSubmissionContext'
 import { BookPlus, BookUser, EllipsisVertical, FileUp, Forward, InfoIcon, ListTodo, Save } from 'lucide-react'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 type AssignmentBoxProps = {
     type: 'quiz' | 'file'
@@ -20,10 +20,7 @@ type AssignmentBoxProps = {
 function AssignmentBoxUI({ type, view, currentPoints, maxPoints, saveFC, submitFC, gradeFC, gradeCustomFC, showSavingDisclaimer, children  , user_id}: AssignmentBoxProps) {
     const [customGrade, setCustomGrade] = React.useState<number>(0)
     const submission = useAssignmentSubmission() as any
-    useEffect(() => {
-        console.log(submission)
-    }
-        , [submission])
+
 
     return (
         <div className='flex flex-col px-6 py-4 nice-shadow rounded-md bg-slate-100/30'>

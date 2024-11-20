@@ -19,7 +19,6 @@ from src.db.courses.chapters import (
     ChapterUpdateOrder,
 )
 from src.services.courses.activities.activities import delete_activity
-from src.security.auth import get_current_user,get_db_session
 from src.services.courses.courses import Course
 from src.services.users.users import PublicUser
 from fastapi import HTTPException, status, Request

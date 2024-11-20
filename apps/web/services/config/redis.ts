@@ -20,14 +20,11 @@ export async function getDataFromCustomDomainRegistry(domain: any) {
   }
 
   try {
-    console.log('looking for the custom domain...')
     let value = (await redis.json.get(`customdomain:${domain}`)) as any
-    console.log('val', value)
     if (!value) return null
 
     return value || null
   } catch (error) {
-    console.error('Redis error:', error)
     return null
   }
 }

@@ -54,7 +54,6 @@ function OrgAccess() {
 
   async function changeJoinMethod(method: 'open' | 'inviteOnly') {
     let res = await changeSignupMechanism(org.id, method, access_token)
-    console.log("changeSignupMechanism "+JSON.stringify(res))
     if (res.status == 200) {
       router.refresh()
       mutate(`${getAPIUrl()}orgs/slug/${org?.slug}`)

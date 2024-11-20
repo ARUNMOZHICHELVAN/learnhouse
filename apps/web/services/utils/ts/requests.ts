@@ -90,7 +90,6 @@ export const swrFetcher = async (url: string, token?: string) => {
 
   try {
     // Fetch the data
-    console.log("URL used in swrFetcher "+url)
     
     const request = await fetch(url, options)
     // let res = errorHandling(request)
@@ -108,7 +107,6 @@ export const swrFetcher = async (url: string, token?: string) => {
   
 //   // return res;
 //   if (!res.ok) {
-//     console.log(JSON.stringify(res))
 //     const error: any = new Error(`${res.statusText}`)
 //     error.status = res.status
 //     throw error
@@ -116,7 +114,6 @@ export const swrFetcher = async (url: string, token?: string) => {
 //   return res.json()
 // }
 export const errorHandling = async (res: any) => {
-  console.log("Error handling req "+JSON.stringify(res))  
   if (!res.ok) {
     // Create an error object with status and message
     var error:any
@@ -157,7 +154,6 @@ export const getResponseMetadata = async (
       HTTPmessage: fetch_result.statusText,
     }
   } else {
-    console.log("success:false is returned")
     return {
       success: false,
       data: json,

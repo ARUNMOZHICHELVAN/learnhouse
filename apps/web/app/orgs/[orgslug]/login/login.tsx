@@ -1,5 +1,4 @@
 'use client'
-import learnhouseIcon from 'public/learnhouse_bigicon_1.png'
 import NanoheaIcon from 'public/nanoheal_logo.jpg'
 import FormLayout, {
   FormField,
@@ -9,9 +8,8 @@ import FormLayout, {
 import Image from 'next/image'
 import * as Form from '@radix-ui/react-form'
 import { useFormik } from 'formik'
-import { getOrgLogoMediaDirectory } from '@services/media/media'
 import React from 'react'
-import { AlertTriangle, Icon, UserRoundPlus } from 'lucide-react'
+import { AlertTriangle, UserRoundPlus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { signIn } from "next-auth/react"

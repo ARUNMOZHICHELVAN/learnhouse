@@ -1,7 +1,6 @@
 import { getAPIUrl } from '@services/config/config'
 import {
   RequestBodyWithAuthHeader,
-  errorHandling,
 } from '@services/utils/ts/requests'
 
 /*
@@ -42,7 +41,6 @@ export async function updatePassword(
 
 //     // If successful, parse the response
 //     const res = await result.json();
-//     console.log("Success:", res);
 //     return res;
 
 //   } catch (error) {

@@ -8,7 +8,7 @@ import EditorOptionsProvider from '@components/Contexts/Editor/EditorContext'
 import AIEditorProvider from '@components/Contexts/AI/AIEditorContext'
 import { cookies } from 'next/headers'
 import { auth } from 'app/auth/auth'
-const EditorWrapper = dynamic(() => import('@components/Objects/Editor/EditorWrapper'), { ssr: false })
+import EditorWrapper from '@components/Objects/Editor/EditorWrapper';
 
 
 type MetadataProps = {

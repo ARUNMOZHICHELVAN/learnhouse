@@ -22,7 +22,7 @@ export async function generateMetadata(params: MetadataProps): Promise<Metadata>
   }
 }
 
-const Login = async (params: MetadataProps) => {
+const Login = async (params: any) => {
   const orgslug = params.params.orgslug
   const org = await getOrganizationContextInfo(orgslug, {
     revalidate: 0,

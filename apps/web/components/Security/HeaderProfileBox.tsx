@@ -7,7 +7,7 @@ import UserAvatar from '@components/Objects/UserAvatar'
 import useAdminStatus from '@components/Hooks/useAdminStatus'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { useOrg } from '@components/Contexts/OrgContext'
-import { getUriForAuth, getUriWithoutOrg } from '@services/config/config'
+import { getUriForAuth } from '@services/config/config'
 import { useCookies } from '@components/Contexts/CookiesContext'
 
 export const HeaderProfileBox = () => {

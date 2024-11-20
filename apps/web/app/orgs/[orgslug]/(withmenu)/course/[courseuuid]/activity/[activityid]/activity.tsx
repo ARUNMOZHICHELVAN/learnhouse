@@ -14,7 +14,6 @@ import AuthenticatedClientElement from '@components/Security/AuthenticatedClient
 import { getCourseThumbnailMediaDirectory } from '@services/media/media'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { CourseProvider } from '@components/Contexts/CourseContext'
-import AIActivityAsk from '@components/Objects/Activities/AI/AIActivityAsk'
 import AIChatBotProvider from '@components/Contexts/AI/AIChatBotContext'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import React, { useEffect } from 'react'

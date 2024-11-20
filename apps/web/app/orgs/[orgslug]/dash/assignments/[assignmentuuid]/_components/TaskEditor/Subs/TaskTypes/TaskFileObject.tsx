@@ -141,7 +141,6 @@ export default function TaskFileObject({ view, user_id, assignmentTaskUUID }: Ta
     }
 
     async function gradeCustomFc(grade: number , user_id:string | undefined) {
-        console.log("GradeCustomFc "+grade)
         if (assignmentTaskUUID) {
             if (grade > assignmentTaskOutsideProvider.max_grade_value) {
                 toast.error(`Grade cannot be more than ${assignmentTaskOutsideProvider.max_grade_value} points`);

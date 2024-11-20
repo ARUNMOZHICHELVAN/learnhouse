@@ -10,7 +10,6 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useSWR from 'swr';
 import { v4 as uuidv4 } from 'uuid';
-import H5PComponent from './H5PComponent';
 
 
 
@@ -256,10 +255,8 @@ function TaskQuizObject({ view, assignmentTaskUUID, user_id }: TaskQuizObjectPro
     if (typeof (user_id) === "undefined") user_id = session.data.user.id
     if (assignmentTaskUUID && user_id) {
       const res = await getAssignmentTaskSubmissionsUser(assignmentTaskUUID, user_id, assignment.assignment_object.assignment_uuid, access_token);
-      console.log("Sdfasdfd");
       if (res.success) {
         setUserSubmissions(res.data.task_submission);
-        console.log("sdfadsf dd " + res.data)
         setUserSubmissionObject(res.data);
         setInitialUserSubmissions(res.data.task_submission);
       }
@@ -323,7 +320,6 @@ function TaskQuizObject({ view, assignmentTaskUUID, user_id }: TaskQuizObjectPro
       getAssignmentTaskUI();
       getAssignmentTaskSubmissionFromUserUI();
       getAssignmentTaskSubmissionFromIdentifiedUserUI();
-      console.log("data 1 s!!" + JSON.stringify(userSubmissionObject))
     }
 
     // Grading area
@@ -557,7 +553,6 @@ function TaskQuizObject({ view, assignmentTaskUUID, user_id }: TaskQuizObjectPro
         <div>
 
         </div>
-        <H5PComponent iframeSrc='https://h5p.org/h5p/embed/61119' />
         {/* <iframe src="https://h5p.org/h5p/embed/61119" width="1091" height="248" frameborder="0" allowfullscreen="allowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" title="Tip of the week #3 - Drag the Words"></iframe><script src="https://h5p.org/sites/all/modules/h5p/library/js/h5p-resizer.js" charset="UTF-8"></script> */}
       </AssignmentBoxUI>
     );

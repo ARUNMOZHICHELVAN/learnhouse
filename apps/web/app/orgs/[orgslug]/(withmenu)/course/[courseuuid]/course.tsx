@@ -2,7 +2,7 @@
 import { removeCourse, startCourse } from '@services/courses/activity'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { getAPIUrl, getUriWithOrg } from '@services/config/config'
+import { getUriWithOrg } from '@services/config/config'
 import PageLoading from '@components/Objects/Loaders/PageLoading'
 import { revalidateTags } from '@services/utils/ts/requests'
 import ActivityIndicators from '@components/Pages/Courses/ActivityIndicators'

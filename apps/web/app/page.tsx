@@ -1,7 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
-import learnhouseBigIcon from 'public/learnhouse_bigicon.png'
 import nanohealBigIcon  from 'public/nanoheal_logo.jpg'
 import Image from 'next/legacy/image'
 import Link from 'next/link'

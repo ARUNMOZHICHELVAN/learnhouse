@@ -2,7 +2,7 @@ import { useAssignmentsTaskDispatch } from '@components/Contexts/Assignments/Ass
 import { useLHSession } from '@components/Contexts/LHSessionContext';
 import { getAPIUrl } from '@services/config/config';
 import { createAssignmentTask } from '@services/courses/assignments'
-import { AArrowUp, FileUp, ListTodo } from 'lucide-react'
+import { FileUp, ListTodo } from 'lucide-react'
 import React from 'react'
 import toast from 'react-hot-toast';
 import { mutate } from 'swr';

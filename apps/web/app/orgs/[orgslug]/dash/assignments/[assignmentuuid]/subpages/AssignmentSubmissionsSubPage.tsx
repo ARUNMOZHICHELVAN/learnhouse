@@ -5,7 +5,7 @@ import { getAPIUrl } from '@services/config/config';
 import { getUserAvatarMediaDirectory } from '@services/media/media';
 import { swrFetcher } from '@services/utils/ts/requests';
 import { SendHorizonal, UserCheck, X } from 'lucide-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import useSWR from 'swr';
 import EvaluateAssignment from './Modals/EvaluateAssignment';
 import { AssignmentProvider } from '@components/Contexts/Assignments/AssignmentContext';
@@ -21,9 +21,7 @@ function AssignmentSubmissionsSubPage({ assignment_uuid }: { assignment_uuid: st
         (url) => swrFetcher(url, access_token)
     );
 
-    useEffect(() => {
-        console.log(assignmentSubmission);
-    }, [session, assignmentSubmission]);
+   
 
     const renderSubmissions = (status: string) => {
         return assignmentSubmission
@@ -64,7 +62,6 @@ function AssignmentSubmissionsSubPage({ assignment_uuid }: { assignment_uuid: st
 }
 
 function SubmissionBox({ assignment_uuid, user_id, submission }: any) {
-    console.log("User id "+user_id)
     const session = useLHSession() as any;
     const access_token = session?.data?.tokens?.access_token;
     const [gradeSudmissionModal, setGradeSubmissionModal] = React.useState({
@@ -77,10 +74,7 @@ function SubmissionBox({ assignment_uuid, user_id, submission }: any) {
         (url) => swrFetcher(url, access_token)
     );
 
-    useEffect(() => {
-        console.log(user_id);
-    }
-        , [session, user]);
+
 
     return (
         <div className='flex flex-row bg-white shadow-[0px_4px_16px_rgba(0,0,0,0.06)] nice-shadow rounded-lg p-4 w-[350px] mx-auto'>

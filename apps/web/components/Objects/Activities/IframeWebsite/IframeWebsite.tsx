@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useOrg } from '@components/Contexts/OrgContext'
-import { getAPIUrl, getUriWithOrg } from '@services/config/config'
+import { getAPIUrl } from '@services/config/config'
 import { RequestBodyWithAuthHeader } from '@services/utils/ts/requests'
 
 function IframeActivity({ course, activity }: { course: any; activity: any }) {

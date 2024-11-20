@@ -139,7 +139,6 @@ const Onboarding: React.FC = () => {
       localStorage.setItem('isOnboardingCompleted', 'true');
       setIsModalOpen(false); // Close modal after completion
       setIsOnboardingComplete(true); // Show success message
-      console.log('Onboarding completed');
     }
   };
 
@@ -147,7 +146,6 @@ const Onboarding: React.FC = () => {
     // Mark onboarding as completed in local storage
     localStorage.setItem('isOnboardingCompleted', 'true');
     setIsModalOpen(false); // Close modal after skipping
-    console.log('Onboarding skipped');
   };
 
   const goToStep = (index: number) => {

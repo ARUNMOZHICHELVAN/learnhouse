@@ -56,7 +56,6 @@ function UserEditGeneral() {
               setSubmitting(false)
               updateProfile(values, session.data.user.id, access_token)
               .then(response => {
-                console.log("Response "+JSON.stringify(response))
                 if(response){
                   setSuccess('User Profile has been updated')
                   setTimeout(() => setSuccess(''),2000)

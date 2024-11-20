@@ -9,7 +9,6 @@ export async function fetchForCustomDomainInRegistry(cleanDomain: any) {
       getUriWithOrg('internal', `/api/domains?cleanDomain=${cleanDomain}`)
     )
     if (!domain_check.ok) {
-      console.log(`Error Response status: ${domain_check.status}`)
       return null
     } else {
       const res = await domain_check.json()

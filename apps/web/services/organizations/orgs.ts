@@ -36,7 +36,6 @@ export async function getOrganizationContextInfo(
   next: any,
   access_token?: string
 ) {
-  console.log("org_slug" +org_slug);
   const result = await fetch(
     `${getAPIUrl()}orgs/slug/${org_slug}`,
     // `${getAPIUrl()}orgs/slug/default`,
